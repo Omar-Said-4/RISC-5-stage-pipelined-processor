@@ -19,10 +19,10 @@ A RISC-like, five-stage pipeline processor implemented using VHDL, is based on t
 
 ## ISA
 
-| Category          | Instruction | Opcode (Category) | Opcode (Number) | Source | Destination | Immediate value |
-| ----------------- | ----------- | ----------------- | --------------- | ------ | ----------- | --------------- |
-| ALU               | NOP         | 00                | 000000          | UUU    | UUUU        | U               |
-| ----------------- | ----------- | ----------------- | --------------- | ------ | ----------- | --------------- |
+| Category       | Instruction | Opcode (Category) | Opcode (Number) | Source | Destination | Immediate value |
+| -------------- | ----------- | ----------------- | --------------- | ------ | ----------- | --------------- |
+| ALU            | NOP         | 00                | 000000          | UUU    | UUUU        | U               |
+| -------------- | ----------- | ----------------- | --------------- | ------ | ----------- | --------------- |
 
 
 
