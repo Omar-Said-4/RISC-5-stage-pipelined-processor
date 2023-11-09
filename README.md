@@ -37,7 +37,6 @@ A RISC-like, five-stage pipeline processor implemented using VHDL, is based on t
 | ALU            | RCL         | 00                | 1               | UUU         | UUU         | DDD         | 1101      |
 | ALU            | SWAP        | 00                | 0               | UUU         | UUU         | DDD         | 1110      |
 | ALU            | LDM         | 00                | 1               | UUU         | DDD         | DDD         | 1111      |
-| -------------- | ----------- | ----------------- | --------------- | ------------| ----------- | ----------- | --------- |
 
 | Category       | Instruction | Opcode (Category) | Effective address | Destination | Source   | Function | EA Low  |
 | -------------- | ----------- | ----------------- | ----------------- | ------------| -------- | -------  | ------- |
@@ -47,7 +46,6 @@ A RISC-like, five-stage pipeline processor implemented using VHDL, is based on t
 | MEM            | STD         | 01                | 1                 | DDD         | UUU      | 011      | UUUU    | 
 | MEM            | PROTECT     | 01                | 0                 | DDD         | UUU      | 100      | UUUU    | 
 | MEM            | FREE        | 01                | 0                 | DDD         | UUU      | 101      | UUUU    | 
-| -------------- | ----------- | ----------------- | ----------------- | ------------| -------  | -------- | ------- | 
 
 
 
@@ -55,7 +53,6 @@ A RISC-like, five-stage pipeline processor implemented using VHDL, is based on t
 | -------------- | ----------  | ----------------- | ------------- | -------- | 
 | PORT           | IN          | 10                | UUU           | DDD      | 
 | PORT           | OUT         | 10                | DDD           | UUU      | 
-| -------------- | ----------- | ----------------- | ------------  | -------- | 
 
 ## Input signals
 
