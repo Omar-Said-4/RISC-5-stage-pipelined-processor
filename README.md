@@ -50,18 +50,18 @@ A RISC-like, five-stage pipeline processor implemented using VHDL, is based on t
 
 
 
-| Category       | Instruction | Opcode (Category) | Destination   | Source   | 
-| -------------- | ----------  | ----------------- | ------------- | -------- | 
-| PORT           | IN          | 10                | UUU           | DDD      | 
-| PORT           | OUT         | 10                | DDD           | UUU      | 
+| Category       | Instruction | Opcode (Category) |Reserved | Destination   | Source   | Function | Reserved  |
+| -------------- | ----------  | ----------------- |-------- |-------------  | -------- | -------- |---------- |
+| PORT           | IN          | 10                |    X    | UUU           | DDD      | XX0      | XXXX      |
+| PORT           | OUT         | 10                |    X    | DDD           | UUU      | XX1      | XXXX      |
 
-| Category       | Instruction   | Opcode (Category) | Destination   | Function |
-| -------------- | ----------    | ----------------- | ------------- | -------  |
-|  JUMP          | CALL          | 11                | UUU           | 000      |
-|  JUMP          | JMP           | 11                | UUU           | 001      |
-|  JUMP          | JZ            | 11                | UUU           | 010      |
-|  JUMP          | RET           | 11                | UUU           | 011      |
-|  JUMP          | RTI           | 11                | UUU           | 100      |
+| Category       | Instruction   | Opcode (Category) |Reserved  |Destination   |Reserved   |Function  |Reserved |
+| -------------- | ----------    | ----------------- |--------- |------------- |---------- | -------  |-------- |
+|  JUMP          | CALL          | 11                |   X      |UUU           |XXX        | 000      |XXXX     |
+|  JUMP          | JMP           | 11                |   X      |UUU           |XXX        | 001      |XXXX     |
+|  JUMP          | JZ            | 11                |   X      |UUU           |XXX        | 010      |XXXX     |
+|  JUMP          | RET           | 11                |   X      |UUU           |XXX        | 011      |XXXX     |
+|  JUMP          | RTI           | 11                |   X      |UUU           |XXX        | 100      |XXXX     |
 
 
 
