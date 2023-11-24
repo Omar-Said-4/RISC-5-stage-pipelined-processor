@@ -77,6 +77,7 @@ A RISC-like, five-stage pipeline processor implemented using VHDL, is based on t
 
 ## Control signals
 | Operation | MR | MW | IOR | IOW | WB1 | WB2 |  Stack operation | Push/Pop  | JUMP | CALL | RSTCTRL | ALU  |
+| ----------|--- | ---|-----|---- | ----|-----|------------------|-----------|------| -----|-------- |------|
 | NOP       | 0  | 0  |  0  |  0  | 0   | 0   | 0                | 0         | 0    | 0    | 0       | 0    | 
 | NEG       | 0  | 0  |  0  |   0 | 1   | 0   | 0                | 0         | 0    | 0    | 0       | 1    | 
 | INC       | 0  | 0  |   0 |   0 | 1   | 0   | 0                | 0         | 0    | 0    | 0       | 1    | 
