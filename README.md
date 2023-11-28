@@ -58,7 +58,7 @@ A RISC-like, five-stage pipeline processor implemented using VHDL, is based on t
 | Category       | Instruction   | Opcode (Category) |Reserved  |Destination   |Reserved   |Function  |Reserved |
 | -------------- | ----------    | ----------------- |--------- |------------- |---------- | -------  |-------- |
 |  JUMP          | CALL          | 11                |   X      |UUU           |XXX        | 000      |XXXX     |
-|  JUMP          | JMP           | 11                |   X      |UUU           |XXX        | 100      |XXXX     |
+|  JUMP          | JMP           | 11                |   X      |UUU           |XXX        | 110      |XXXX     |
 |  JUMP          | JZ            | 11                |   X      |UUU           |XXX        | 010      |XXXX     |
 |  JUMP          | RET           | 11                |   X      |UUU           |XXX        | 101      |XXXX     |
 |  JUMP          | RTI           | 11                |   X      |UUU           |XXX        | 001      |XXXX     |
