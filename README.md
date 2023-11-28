@@ -41,12 +41,12 @@ A RISC-like, five-stage pipeline processor implemented using VHDL, is based on t
 
 | Category       | Instruction | Opcode (Category) | Effective address | Destination | Source   | Function | EA Low  |
 | -------------- | ----------- | ----------------- | ----------------- | ------------| -------- | -------  | ------- |
-| MEM            | PUSH        | 01                | 0                 | UUU         | DDD      | 000      | UUUU    | 
-| MEM            | POP         | 01                | 0                 | UUU         | DDD      | 001      | UUUU    | 
+| MEM            | PUSH        | 01                | 0                 | UUU         | DDD      | 110      | UUUU    | 
+| MEM            | POP         | 01                | 0                 | UUU         | DDD      | 111      | UUUU    | 
 | MEM            | STD         | 01                | 1                 | UUU         | DDD      | 010      | UUUU    | 
 | MEM            | LDD         | 01                | 1                 | DDD         | UUU      | 011      | UUUU    | 
 | MEM            | PROTECT     | 01                | 0                 | DDD         | UUU      | 100      | UUUU    | 
-| MEM            | FREE        | 01                | 0                 | DDD         | UUU      | 110      | UUUU    | 
+| MEM            | FREE        | 01                | 0                 | DDD         | UUU      | 000      | UUUU    | 
 
 
 
