@@ -46,7 +46,7 @@ A RISC-like, five-stage pipeline processor implemented using VHDL, is based on t
 | MEM            | LDD         | 01                | 1                 | UUU         | DDD      | 010      | UUUU    | 
 | MEM            | STD         | 01                | 1                 | DDD         | UUU      | 011      | UUUU    | 
 | MEM            | PROTECT     | 01                | 0                 | DDD         | UUU      | 100      | UUUU    | 
-| MEM            | FREE        | 01                | 0                 | DDD         | UUU      | 101      | UUUU    | 
+| MEM            | FREE        | 01                | 0                 | DDD         | UUU      | 110      | UUUU    | 
 
 
 
