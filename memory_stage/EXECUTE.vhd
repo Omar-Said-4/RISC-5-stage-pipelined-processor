@@ -76,7 +76,7 @@ BEGIN
     );
     ram_addr_in <= effective_address WHEN (stack_operation = '0') ELSE
         sp WHEN (push_pop = '1') ELSE
-        (STD_LOGIC_VECTOR(unsigned(sp) + to_unsigned(2, 12))) AND X"00000FFE"WHEN (push_pop = '0');
+        (STD_LOGIC_VECTOR(unsigned(sp) + to_unsigned(2, sp'length))) AND X"00000FFE"WHEN (push_pop = '0');
     weh <= mw AND (NOT higher_location_state);
     wel <= mw AND (NOT lower_location_state);
     data_out <= mem_out WHEN (mr = '1') ELSE
