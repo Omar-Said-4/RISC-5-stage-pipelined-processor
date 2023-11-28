@@ -12,9 +12,11 @@ ENTITY execute IS
         free : IN STD_LOGIC;
         stack_operation : IN STD_LOGIC;
         push_pop : IN STD_LOGIC;
-        mem_data_out : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+        data_out : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
         effective_address : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-        ram_data_in : IN STD_LOGIC_VECTOR(31 DOWNTO 0)
+        data_in : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+        ior : IN STD_LOGIC;
+        iow : IN STD_LOGIC
     );
 END execute;
 
@@ -29,7 +31,7 @@ ARCHITECTURE exec_stage OF execute IS
             data_in : IN STD_LOGIC_VECTOR (31 DOWNTO 0);
             data_out : OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
             rstloc : IN STD_LOGIC
-            );
+        );
     END COMPONENT;
     COMPONENT mem_lock_cache IS
         PORT (
@@ -40,12 +42,19 @@ ARCHITECTURE exec_stage OF execute IS
             higher_location_state : OUT STD_LOGIC;
             lower_location_state : OUT STD_LOGIC);
     END COMPONENT;
+
+    ------------------------------------------------------------------------------------------------
     SIGNAL sp : STD_LOGIC_VECTOR(31 DOWNTO 0) := X"00000FFE";
+    SIGNAL IN_PORT : STD_LOGIC_VECTOR(31 DOWNTO 0);
+    SIGNAL OUT_PORT : STD_LOGIC_VECTOR(31 DOWNTO 0);
+    ------------------------------------------------------------------------------------------------
     SIGNAL ram_addr_in : STD_LOGIC_VECTOR(31 DOWNTO 0);
     SIGNAL higher_location_state : STD_LOGIC;
     SIGNAL lower_location_state : STD_LOGIC;
     SIGNAL weh : STD_LOGIC;
     SIGNAL wel : STD_LOGIC;
+    SIGNAL mem_out : STD_LOGIC_VECTOR(31 DOWNTO 0);
+    SIGNAL io_out : STD_LOGIC_VECTOR(31 DOWNTO 0);
 BEGIN
     comp_data_mem : data_ram PORT MAP(
         clk => clk,
@@ -53,8 +62,8 @@ BEGIN
         wel => wel,
         re => mr,
         addr => ram_addr_in(11 DOWNTO 0),
-        data_out => mem_data_out,
-        data_in => ram_data_in,
+        data_out => mem_out,
+        data_in => data_in,
         rstloc => free
     );
     comp_mem_lock_cache : mem_lock_cache PORT MAP(
@@ -70,6 +79,8 @@ BEGIN
         (STD_LOGIC_VECTOR(unsigned(sp) + to_unsigned(2, 12))) AND X"00000FFE"WHEN (push_pop = '0');
     weh <= mw AND (NOT higher_location_state);
     wel <= mw AND (NOT lower_location_state);
+    data_out <= mem_out WHEN (mr = '1') ELSE
+        io_out WHEN (ior = '1');
     PROCESS (clk)
     BEGIN
         IF (rising_edge(clk)) THEN
@@ -79,6 +90,11 @@ BEGIN
                 ELSE
                     sp <= (STD_LOGIC_VECTOR(unsigned(sp) + to_unsigned(2, sp'length)) AND X"00000FFE");
                 END IF;
+            END IF;
+            IF (iow = '1') THEN
+                OUT_PORT <= data_in;
+            ELSIF (ior = '1') THEN
+                io_out <= IN_PORT;
             END IF;
         END IF;
     END PROCESS;
