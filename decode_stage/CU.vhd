@@ -6,7 +6,7 @@ ENTITY CU IS
         clk, reset : IN STD_LOGIC;
         op_code : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
         function_code : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
-        MR, MW, IOR, IOW, WB1, WB2, STACK_OPERATION, PUSH_POP, JUMP, CALL, RSTCTRL, PROTECT, FREE, ALU, RTI : OUT STD_LOGIC);
+        MR, MW, IOR, IOW, WB1, WB2, STACK_OPERATION, PUSH_POP, JUMP, CALL, RSTCTRL, PROTECT, FREE, ALU, RTI, JZ : OUT STD_LOGIC);
 END CU;
 ARCHITECTURE CU_ARCH OF CU IS
 BEGIN
@@ -31,6 +31,7 @@ BEGIN
         ELSIF rising_edge(clk) THEN
             IF op_code = "00" THEN
                 MR <= '0';
+                JZ <= '0';
                 MW <= '0';
                 IOR <= '0';
                 ALU <= '1';
@@ -60,6 +61,7 @@ BEGIN
                 WB1 <= function_code(0);
                 WB2 <= '0';
                 JUMP <= '0';
+                JZ <= '0';
                 CALL <= '0';
                 RSTCTRL <= '0';
                 ALU <= '0';
@@ -102,6 +104,7 @@ BEGIN
                 WB2 <= '0';
                 ALU <= '0';
                 RTI <= '0';
+                JZ <= 0;
                 STACK_OPERATION <= '0';
                 PUSH_POP <= '0';
                 JUMP <= '0';
@@ -119,6 +122,11 @@ BEGIN
                 FREE <= '0';
                 RTI <= function_code(0) AND NOT function_code(1) AND NOT function_code(2);
                 RSTCTRL <= '0';
+                IF (function_code(2 DOWNTO 0) = "010") THEN
+                    JZ <= '1';
+                ELSE
+                    JZ <= '0';
+                END IF;
                 IF (function_code(2 DOWNTO 0) = "111") THEN
                     MR <= '0';
                     MW <= '0';
