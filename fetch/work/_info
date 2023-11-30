@@ -1,0 +1,174 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/intelFPGA/18.1
+Ecu
+Z0 w1701263791
+Z1 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z3 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+Z4 dC:/intelFPGA/18.1/fetch
+Z5 8C:/intelFPGA/18.1/fetch/fetch_stage.vhd
+Z6 FC:/intelFPGA/18.1/fetch/fetch_stage.vhd
+l0
+L4
+VYYZ=Ob^ZoozD3gSP7Fbl;2
+!s100 L3UNB_PQQUXf5Y`H=CgQJ3
+Z7 OV;C;10.5b;63
+32
+Z8 !s110 1701263805
+!i10b 1
+Z9 !s108 1701263805.000000
+Z10 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/intelFPGA/18.1/fetch/fetch_stage.vhd|
+Z11 !s107 C:/intelFPGA/18.1/fetch/fetch_stage.vhd|
+!i113 1
+Z12 o-work work -2002 -explicit
+Z13 tExplicit 1 CvgOpt 0
+Acu_arch
+R1
+R2
+R3
+Z14 DEx4 work 2 cu 0 22 YYZ=Ob^ZoozD3gSP7Fbl;2
+l12
+L11
+Z15 VaON56O46iMMHH@0RF>;bD3
+Z16 !s100 fb6U>jg::cYdK?iHAoJS73
+R7
+32
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12
+R13
+Efetch
+Z17 w1701211627
+R1
+R2
+R3
+R4
+R5
+R6
+l0
+L5
+VkUCj`DHSh0jVC_FgJADzK2
+!s100 KM4n[d;nll]JLZ<EG?f900
+R7
+32
+Z18 !s110 1701211629
+!i10b 1
+Z19 !s108 1701211629.000000
+R10
+R11
+!i113 1
+R12
+R13
+Aarchfetch
+R1
+R2
+R3
+DEx4 work 5 fetch 0 22 kUCj`DHSh0jVC_FgJADzK2
+l31
+L15
+VJD5dk[bBRVTC^f04lGUhJ0
+!s100 n?579?kZ`fX2SX[ST2UQe0
+R7
+32
+R18
+!i10b 1
+R19
+R10
+R11
+!i113 1
+R12
+R13
+Einstmemory
+Z20 w1701211340
+R1
+R2
+R3
+R4
+Z21 8C:/intelFPGA/18.1/fetch/mem.vhd
+Z22 FC:/intelFPGA/18.1/fetch/mem.vhd
+l0
+L4
+VHV;cB3lX2cnC?XgTe1U<X3
+!s100 I8QZ]X_ClcfZFY6DYcSad3
+R7
+32
+Z23 !s110 1701211357
+!i10b 1
+Z24 !s108 1701211357.000000
+Z25 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/intelFPGA/18.1/fetch/mem.vhd|
+Z26 !s107 C:/intelFPGA/18.1/fetch/mem.vhd|
+!i113 1
+R12
+R13
+Async_instmemory_a
+R1
+R2
+R3
+DEx4 work 10 instmemory 0 22 HV;cB3lX2cnC?XgTe1U<X3
+l15
+L12
+V;]BjmCG_RkB[_Y4BG;9Q_3
+!s100 =;2Q66oGgUDHA0;b_iYg`0
+R7
+32
+R23
+!i10b 1
+R24
+R25
+R26
+!i113 1
+R12
+R13
+Eram
+Z27 w1701190059
+R1
+R2
+R3
+R4
+R21
+R22
+l0
+L4
+VY@dfzTXDXdXMdm;Sb@FEE3
+!s100 zL7XDYQhNF3kn]LGPLe];2
+R7
+32
+Z28 !s110 1701190165
+!i10b 1
+Z29 !s108 1701190165.000000
+R25
+R26
+!i113 1
+R12
+R13
+Async_ram_a
+R1
+R2
+R3
+DEx4 work 3 ram 0 22 Y@dfzTXDXdXMdm;Sb@FEE3
+l16
+L13
+VoB:o>FAa2RISEk<NNhU_53
+!s100 fX@TefG2:GJXS]GLNhh^01
+R7
+32
+R28
+!i10b 1
+R29
+R25
+R26
+!i113 1
+R12
+R13

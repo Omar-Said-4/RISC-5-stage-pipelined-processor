@@ -1,0 +1,27 @@
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.numeric_std.ALL;
+ENTITY ram IS PORT (
+    clk : IN STD_LOGIC;
+    rst : IN STD_LOGIC;
+    we : IN STD_LOGIC;
+    address : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+    datain : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+    dataout : OUT STD_LOGIC_VECTOR(7 DOWNTO 0));
+END ENTITY ram;
+
+ARCHITECTURE sync_ram_a OF ram IS
+    TYPE ram_type IS ARRAY(0 TO 3) OF STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL ram : ram_type;
+    SIGNAL Counter IN STD_LOGIC :=  
+BEGIN
+    PROCESS (clk) IS BEGIN
+        IF rising_edge(clk) THEN
+            IF we = '1' THEN
+                ram(to_integer(unsigned((address)))) <= datain;
+            END IF;
+        END IF;
+    END PROCESS;
+    dataout <= ram(to_integer(unsigned((address))));
+
+END sync_ram_a;
