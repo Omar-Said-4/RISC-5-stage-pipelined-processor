@@ -49,11 +49,11 @@ BEGIN
     WITH signal_read_one SELECT
         dataout1 <=
         register_file(to_integer(unsigned((address_read_one)))) WHEN '1',
-        (OTHERS => '0') WHEN '0';
+        (OTHERS => '0') WHEN OTHERS;
 
     WITH signal_read_two SELECT
         dataout2 <=
         register_file(to_integer(unsigned((address_read_two)))) WHEN '0',
-        (OTHERS => '0') WHEN '0';
+        (OTHERS => '0') WHEN OTHERS;
 
 END sync_register_file;
