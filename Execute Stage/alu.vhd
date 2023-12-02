@@ -65,7 +65,6 @@ BEGIN
         ELSE
         (x"00")WHEN (AluOp = '1') AND (func = "1010") AND (src1 = src2)
         ELSE
-        -- (src1 OR x"10") WHEN (AluOp = '1') AND (func = "1011")
         (src1 OR bitset_out) WHEN (AluOp = '1') AND (func = "1011")
         ELSE
         src1(to_integer(unsigned(src2) - 1) DOWNTO 0) & src1((n - 1) DOWNTO to_integer(unsigned(src2)))WHEN (AluOp = '1') AND (func = "1100")
