@@ -2,7 +2,7 @@ LIBRARY IEEE;
 USE IEEE.std_logic_1164.ALL;
 
 ENTITY Execute_tb IS
-    GENERIC (n : INTEGER := 8);
+    GENERIC (n : INTEGER := 32);
 END Execute_tb;
 
 ARCHITECTURE Behavioral OF Execute_tb IS
@@ -30,32 +30,33 @@ BEGIN
     u0 : Execute GENERIC MAP(n) PORT MAP(tclk, tsrc1, tsrc2, tAluOp, tcallOp, tcalledAddress, tcurrentpc, tjmpOp, tjmpzOp, tfunc, tdest1, tdest2, tcalledpc, tsavedpc);
     PROCESS
     BEGIN
+        -- testcase 1
+        tclk <= '0';
+        WAIT FOR 100 ps;
         tclk <= '1';
         WAIT FOR 100 ps;
+        -- testcase 2
         tclk <= '0';
         WAIT FOR 100 ps;
         tclk <= '1';
         WAIT FOR 100 ps;
         tclk <= '0';
+        WAIT FOR 100 ps;
+        tclk <= '1';
         WAIT FOR 100 ps;
         WAIT;
     END PROCESS;
     PROCESS
     BEGIN
         -- testcase 1 
-        tsrc1 <= x"F0";
-        tsrc2 <= x"00";
+        tsrc1 <= x"FFFFFFF0";
+        tsrc2 <= x"00000000";
         tAluOp <= '1';
         tfunc <= "1011";
         WAIT FOR 100 ps;
         -- testcase 2
-        tsrc1 <= x"F0";
-        tsrc2 <= x"01";
-        tAluOp <= '1';
-        tfunc <= "1011";
-        WAIT FOR 100 ps;
-        tsrc1 <= x"F0";
-        tsrc2 <= x"02";
+        tsrc1 <= x"FFFFFFF0";
+        tsrc2 <= x"00000001";
         tAluOp <= '1';
         tfunc <= "1011";
         WAIT FOR 100 ps;

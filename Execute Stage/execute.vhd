@@ -2,7 +2,7 @@ LIBRARY IEEE;
 USE IEEE.std_logic_1164.ALL;
 
 ENTITY Execute IS
-    GENERIC (n : INTEGER := 8);
+    GENERIC (n : INTEGER := 32);
     PORT (
         clk : IN STD_LOGIC;
         src1, src2 : IN STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
@@ -48,8 +48,8 @@ ARCHITECTURE ArchExecute OF Execute IS
     -- C Carry Flag
     SIGNAL CCR : STD_LOGIC_VECTOR (2 DOWNTO 0) := "000";
 BEGIN
-    u0 : ALU GENERIC MAP(n) PORT MAP(src1, src2, AluOp, func, dest1, dest2, zf, nf, cf);
-    u1 : FullAdder GENERIC MAP(n) PORT MAP(currentpc, x"01", '0', '0', savedpc, OPEN);
+    u0 : ALU GENERIC MAP(n) PORT MAP(src1, src2, AluOp, func, out1, out2, zf, nf, cf);
+    u1 : FullAdder GENERIC MAP(n) PORT MAP(currentpc, x"00000001", '0', '0', savedpc, OPEN);
     PROCESS (clk)
     BEGIN
         IF rising_edge(clk) THEN
@@ -57,6 +57,8 @@ BEGIN
                 CCR(0) <= zf;
                 CCR(1) <= nf;
                 CCR(2) <= cf;
+                dest1 <= out1;
+                dest2 <= out2;
             END IF;
             IF ((callOp = '1') OR (jmpOp = '1') OR (jmpzOp = '1' AND CCR(2) = '1')) THEN
                 calledpc <= calledAddress;

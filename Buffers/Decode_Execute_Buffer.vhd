@@ -4,6 +4,8 @@ ENTITY Decode_Execute_Buffer IS
     PORT (
         clk : IN STD_LOGIC;
         rst : IN STD_LOGIC;
+        in_func : IN STD_LOGIC_VECTOR (3 DOWNTO 0);
+        out_func : OUT STD_LOGIC_VECTOR (3 DOWNTO 0);
         in_src1 : IN STD_LOGIC_VECTOR (31 DOWNTO 0);
         in_src2 : IN STD_LOGIC_VECTOR (31 DOWNTO 0);
         out_src1 : OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
@@ -51,6 +53,7 @@ BEGIN
             out_FREE <= in_FREE;
             out_ALUop <= in_ALUop;
             out_RTI <= in_RTI;
+            out_func <= in_func;
         END IF;
     END PROCESS;
 END ArchDecode_Execute_Buffer;

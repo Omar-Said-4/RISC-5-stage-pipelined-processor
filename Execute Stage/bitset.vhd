@@ -3,7 +3,7 @@ USE IEEE.std_logic_1164.ALL;
 USE IEEE.numeric_std.ALL;
 
 ENTITY bitset_module IS
-    GENERIC (n : INTEGER := 8);
+    GENERIC (n : INTEGER := 32);
     PORT (
         bitset_pos : IN STD_LOGIC_VECTOR (2 DOWNTO 0);
         bitset_out : OUT STD_LOGIC_VECTOR (n - 1 DOWNTO 0)
@@ -11,8 +11,8 @@ ENTITY bitset_module IS
 END ENTITY bitset_module;
 
 ARCHITECTURE Archbitset OF bitset_module IS
-    SIGNAL zeros : STD_LOGIC_VECTOR (n - 1 DOWNTO 0) := x"00";
-    SIGNAL one : STD_LOGIC_VECTOR (n - 1 DOWNTO 0) := x"01";
+    SIGNAL zeros : STD_LOGIC_VECTOR (n - 1 DOWNTO 0) := x"00000000";
+    SIGNAL one : STD_LOGIC_VECTOR (n - 1 DOWNTO 0) := x"00000001";
 BEGIN
     bitset_out <= one WHEN (bitset_pos = "000")
         ELSE

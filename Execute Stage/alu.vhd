@@ -3,7 +3,7 @@ USE IEEE.std_logic_1164.ALL;
 USE IEEE.numeric_std.ALL;
 
 ENTITY ALU IS
-    GENERIC (n : INTEGER := 8);
+    GENERIC (n : INTEGER := 32);
     PORT (
         src1, src2 : IN STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
         AluOp : IN STD_LOGIC;
@@ -37,8 +37,8 @@ ARCHITECTURE ArchALU OF ALU IS
     SIGNAL decFullAdderCout, FullAdderCout, incAdderCout, decAdderCout : STD_LOGIC;
 BEGIN
     u0 : FullAdder GENERIC MAP(n) PORT MAP(src1, src2, '0', '0', FullAdderOut, FullAdderCout);
-    u1 : FullAdder GENERIC MAP(n) PORT MAP(src1, x"01", '0', '0', incAdderOut, incAdderCout);
-    u2 : FullAdder GENERIC MAP(n) PORT MAP(src1, x"01", '1', '1', decAdderOut, decAdderCout);
+    u1 : FullAdder GENERIC MAP(n) PORT MAP(src1, x"00000001", '0', '0', incAdderOut, incAdderCout);
+    u2 : FullAdder GENERIC MAP(n) PORT MAP(src1, x"00000001", '1', '1', decAdderOut, decAdderCout);
     u3 : FullAdder GENERIC MAP(n) PORT MAP(src1, src2, '1', '1', decFullAdderOut, decFullAdderCout);
     u4 : bitset_module GENERIC MAP(n) PORT MAP(src2(2 DOWNTO 0), bitset_out);
     out1 <= (NOT src1) WHEN (AluOp = '1') AND (func = "0000")
@@ -59,11 +59,11 @@ BEGIN
         ELSE
         (src1 OR src2)WHEN (AluOp = '1') AND (func = "1001")
         ELSE
-        (x"01")WHEN (AluOp = '1') AND (func = "1010") AND (src1 > src2)
+        (x"00000001")WHEN (AluOp = '1') AND (func = "1010") AND (src1 > src2)
         ELSE
-        (x"FF")WHEN (AluOp = '1') AND (func = "1010") AND (src1 < src2)
+        (x"FFFFFFFF")WHEN (AluOp = '1') AND (func = "1010") AND (src1 < src2)
         ELSE
-        (x"00")WHEN (AluOp = '1') AND (func = "1010") AND (src1 = src2)
+        (x"00000000")WHEN (AluOp = '1') AND (func = "1010") AND (src1 = src2)
         ELSE
         (src1 OR bitset_out) WHEN (AluOp = '1') AND (func = "1011")
         ELSE

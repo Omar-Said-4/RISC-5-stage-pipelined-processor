@@ -1,7 +1,7 @@
 LIBRARY IEEE;
 USE IEEE.std_logic_1164.ALL;
 ENTITY FullAdder IS
-    GENERIC (n : INTEGER := 8);
+    GENERIC (n : INTEGER := 32);
     PORT (
         X, Y : IN STD_LOGIC_VECTOR(n - 1 DOWNTO 0);
         Cin, M : IN STD_LOGIC;
