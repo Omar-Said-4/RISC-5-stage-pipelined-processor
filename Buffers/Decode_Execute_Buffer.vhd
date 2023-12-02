@@ -1,15 +1,15 @@
 LIBRARY IEEE;
 USE IEEE.std_logic_1164.ALL;
-ENTITY Fetch_Decode_Buffer IS
+ENTITY Decode_Execute_Buffer IS
     PORT (
         clk : IN STD_LOGIC;
         rst : IN STD_LOGIC;
         in_instruction : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
         out_instruction : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)
     );
-END ENTITY Fetch_Decode_Buffer;
+END ENTITY Decode_Execute_Buffer;
 
-ARCHITECTURE ArchFetch_Decode_Buffer OF Fetch_Decode_Buffer IS
+ARCHITECTURE Decode_Execute_Buffer OF Decode_Execute_Buffer IS
 BEGIN
     PROCESS (clk, rst)
     BEGIN
@@ -17,7 +17,7 @@ BEGIN
             out_instruction <= x"00000000";
         END IF;
         IF rising_edge(clk) THEN
-            out_instruction <= in_instruction;
+            -- out_instruction <= in_instruction;
         END IF;
     END PROCESS;
 END ArchFetch_Decode_Buffer;
