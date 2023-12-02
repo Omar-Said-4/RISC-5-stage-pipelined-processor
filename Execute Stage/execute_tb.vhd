@@ -20,14 +20,15 @@ ARCHITECTURE Behavioral OF Execute_tb IS
             dest1 : OUT STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
             dest2 : OUT STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
             calledpc : OUT STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
-            savedpc : OUT STD_LOGIC_VECTOR (n - 1 DOWNTO 0)
+            savedpc : OUT STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
+            isjmp : OUT STD_LOGIC
         );
     END COMPONENT;
     SIGNAL tsrc1, tsrc2, tcurrentpc, tdest1, tdest2, tcalledpc, tsavedpc, tcalledAddress : STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
     SIGNAL tfunc : STD_LOGIC_VECTOR (3 DOWNTO 0);
-    SIGNAL tclk, tAluOp, tcallOp, tjmpOp, tjmpzOp : STD_LOGIC;
+    SIGNAL tclk, tAluOp, tcallOp, tjmpOp, tjmpzOp, tisjmp : STD_LOGIC;
 BEGIN
-    u0 : Execute GENERIC MAP(n) PORT MAP(tclk, tsrc1, tsrc2, tAluOp, tcallOp, tcalledAddress, tcurrentpc, tjmpOp, tjmpzOp, tfunc, tdest1, tdest2, tcalledpc, tsavedpc);
+    u0 : Execute GENERIC MAP(n) PORT MAP(tclk, tsrc1, tsrc2, tAluOp, tcallOp, tcalledAddress, tcurrentpc, tjmpOp, tjmpzOp, tfunc, tdest1, tdest2, tcalledpc, tsavedpc, tisjmp);
     PROCESS
     BEGIN
         -- testcase 1

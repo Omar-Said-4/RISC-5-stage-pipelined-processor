@@ -16,8 +16,9 @@ ENTITY Execute IS
         dest1 : OUT STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
         dest2 : OUT STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
         calledpc : OUT STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
-        savedpc : OUT STD_LOGIC_VECTOR (n - 1 DOWNTO 0)
+        savedpc : OUT STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
         -- remember to add isjmp out signal
+        isjmp : OUT STD_LOGIC
     );
 END ENTITY Execute;
 
@@ -63,6 +64,9 @@ BEGIN
             END IF;
             IF ((callOp = '1') OR (jmpOp = '1') OR (jmpzOp = '1' AND CCR(2) = '1')) THEN
                 calledpc <= calledAddress;
+                isjmp <= '1';
+            ELSE
+                isjmp <= '0';
             END IF;
         END IF;
     END PROCESS;
