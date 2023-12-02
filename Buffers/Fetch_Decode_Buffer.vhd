@@ -15,8 +15,7 @@ BEGIN
     BEGIN
         IF rst = '1' THEN
             out_instruction <= x"00000000";
-        END IF;
-        IF rising_edge(clk) THEN
+        ELSIF rising_edge(clk) THEN
             out_instruction <= in_instruction;
         END IF;
     END PROCESS;

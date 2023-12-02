@@ -34,8 +34,7 @@ BEGIN
             out_FREE <= '0';
             out_ALUop <= '0';
             out_RTI <= '0';
-        END IF;
-        IF rising_edge(clk) THEN
+        ELSIF rising_edge(clk) THEN
             out_src1 <= in_src1;
             out_src2 <= in_src2;
             out_MR <= in_MR;
