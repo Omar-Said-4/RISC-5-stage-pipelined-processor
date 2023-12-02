@@ -32,33 +32,35 @@ BEGIN
     BEGIN
         -- testcase 1
         tclk <= '0';
-        WAIT FOR 100 ps;
+        WAIT FOR 50 ps;
         tclk <= '1';
-        WAIT FOR 100 ps;
+        WAIT FOR 50 ps;
         -- testcase 2
         tclk <= '0';
-        WAIT FOR 100 ps;
+        WAIT FOR 50 ps;
         tclk <= '1';
-        WAIT FOR 100 ps;
+        WAIT FOR 50 ps;
         tclk <= '0';
-        WAIT FOR 100 ps;
+        WAIT FOR 50 ps;
         tclk <= '1';
-        WAIT FOR 100 ps;
+        WAIT FOR 50 ps;
         WAIT;
     END PROCESS;
     PROCESS
     BEGIN
         -- testcase 1 
-        tsrc1 <= x"FFFFFFF0";
+        tsrc1 <= x"00000001";
         tsrc2 <= x"00000000";
         tAluOp <= '1';
-        tfunc <= "1011";
+        tfunc <= "0011";
         WAIT FOR 100 ps;
         -- testcase 2
         tsrc1 <= x"FFFFFFF0";
         tsrc2 <= x"00000001";
-        tAluOp <= '1';
+        tAluOp <= '0';
+        tjmpzOp <= '1';
         tfunc <= "1011";
+        tcalledAddress <= x"10101010";
         WAIT FOR 100 ps;
         WAIT;
     END PROCESS;

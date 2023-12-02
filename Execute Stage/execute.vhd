@@ -17,6 +17,7 @@ ENTITY Execute IS
         dest2 : OUT STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
         calledpc : OUT STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
         savedpc : OUT STD_LOGIC_VECTOR (n - 1 DOWNTO 0)
+        -- remember to add isjmp out signal
     );
 END ENTITY Execute;
 
