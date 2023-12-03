@@ -37,7 +37,7 @@ BEGIN
         IF rst = '1' THEN
             PC <= (OTHERS => '0');
         ELSIF rising_edge(clk) THEN
-            IF memOut(15 DOWNTO 14) = "11" AND is32BitInst = '0' THEN -- is 32 bit Instruction
+            IF memOut(14) = '1' AND is32BitInst = '0' THEN -- is 32 bit Instruction
                 fetch_out <= (OTHERS => '0'); -- NOPE
                 tempFetchOut <= memOut;
                 is32BitInst <= '1';
