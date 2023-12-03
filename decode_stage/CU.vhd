@@ -104,7 +104,7 @@ BEGIN
                 WB2 <= '0';
                 ALU <= '0';
                 RTI <= '0';
-                JZ <= 0;
+                JZ <= '0';
                 STACK_OPERATION <= '0';
                 PUSH_POP <= '0';
                 JUMP <= '0';
