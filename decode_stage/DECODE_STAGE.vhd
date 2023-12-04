@@ -24,6 +24,8 @@ ENTITY decode IS
         EA_IN : IN STD_LOGIC_VECTOR(19 DOWNTO 0);
         EA : OUT STD_LOGIC_VECTOR(19 DOWNTO 0);
         out_func : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
+        out_wb_addr1 : OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
+        out_wb_addr2 : OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
         MR, MW, IOR, IOW, WB1, WB2, STACK_OPERATION, PUSH_POP, JUMP, CALL, RSTCTRL, PROTECT, FREE, ALU, RTI : OUT STD_LOGIC
     );
 END decode;
@@ -52,9 +54,20 @@ ARCHITECTURE DEC_ARCH OF decode IS
             rst : IN STD_LOGIC
         );
     END COMPONENT;
+    COMPONENT immediate_val_signextend IS
+        PORT (
+            immediate_val : IN STD_LOGIC_VECTOR (15 DOWNTO 0);
+            extended_val : OUT STD_LOGIC_VECTOR (31 DOWNTO 0)
+        );
+    END COMPONENT;
     SIGNAL src_out2 : STD_LOGIC_VECTOR(31 DOWNTO 0);
     SIGNAL src_out1 : STD_LOGIC_VECTOR(31 DOWNTO 0);
+    SIGNAL extended_val : STD_LOGIC_VECTOR(31 DOWNTO 0);
 BEGIN
+    u0 : immediate_val_signextend PORT MAP(
+        immediate_val => immediate,
+        extended_val => extended_val
+    );
     comp_reg_bank : REG_BANK PORT MAP(
         clk => clk,
         we1 => we1,
@@ -99,10 +112,12 @@ BEGIN
             EA <= EA_IN;
             out_currentPC <= in_currentPC;
             out_func <= function_code;
+            out_wb_addr1 <= wb_addr1;
+            out_wb_addr2 <= wb_addr2;
             IF (in_is32BitInst = '0') THEN
                 reg2 <= data_in1;
             ELSE
-                reg2 <= x"0000" & immediate;
+                reg2 <= extended_val;
             END IF;
         END IF;
     END PROCESS;
