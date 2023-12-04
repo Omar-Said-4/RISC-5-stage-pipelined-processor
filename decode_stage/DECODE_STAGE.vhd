@@ -7,16 +7,23 @@ ENTITY decode IS
         reset : IN STD_LOGIC;
         we1 : IN STD_LOGIC;
         we2 : IN STD_LOGIC;
+        in_is32BitInst : IN STD_LOGIC;
+        in_currentPC : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+        out_currentPC : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
         wb_addr1 : IN STD_LOGIC_VECTOR (2 DOWNTO 0);
         wb_addr2 : IN STD_LOGIC_VECTOR (2 DOWNTO 0);
         data_in1 : IN STD_LOGIC_VECTOR (31 DOWNTO 0);
         data_in2 : IN STD_LOGIC_VECTOR (31 DOWNTO 0);
         re_addr1 : IN STD_LOGIC_VECTOR (2 DOWNTO 0);
+        immediate : IN STD_LOGIC_VECTOR (15 DOWNTO 0);
         re_addr2 : IN STD_LOGIC_VECTOR (2 DOWNTO 0);
         reg1 : OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
         reg2 : OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
         op_code : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
         function_code : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+        EA_IN : IN STD_LOGIC_VECTOR(19 DOWNTO 0);
+        EA : OUT STD_LOGIC_VECTOR(19 DOWNTO 0);
+        out_func : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
         MR, MW, IOR, IOW, WB1, WB2, STACK_OPERATION, PUSH_POP, JUMP, CALL, RSTCTRL, PROTECT, FREE, ALU, RTI : OUT STD_LOGIC
     );
 END decode;
@@ -45,6 +52,8 @@ ARCHITECTURE DEC_ARCH OF decode IS
             rst : IN STD_LOGIC
         );
     END COMPONENT;
+    SIGNAL src_out2 : STD_LOGIC_VECTOR(31 DOWNTO 0);
+    SIGNAL src_out1 : STD_LOGIC_VECTOR(31 DOWNTO 0);
 BEGIN
     comp_reg_bank : REG_BANK PORT MAP(
         clk => clk,
@@ -56,8 +65,8 @@ BEGIN
         data_in2 => data_in2,
         re_addr1 => re_addr1,
         re_addr2 => re_addr2,
-        reg1 => reg1,
-        reg2 => reg2,
+        reg1 => src_out1,
+        reg2 => src_out2,
         rst => reset
     );
     comp_cu : CU PORT MAP(
@@ -81,4 +90,20 @@ BEGIN
         ALU => ALU,
         RTI => RTI
     );
+    -- reg2 <= src_out2 WHEN in_is32BitInst = '0' ELSE
+    --     x"0000" & immediate;
+    PROCESS (clk)
+    BEGIN
+        IF (clk'EVENT AND clk = '1') THEN
+            reg1 <= src_out1;
+            EA <= EA_IN;
+            out_currentPC <= in_currentPC;
+            out_func <= function_code;
+            IF (in_is32BitInst = '0') THEN
+                reg2 <= data_in1;
+            ELSE
+                reg2 <= x"0000" & immediate;
+            END IF;
+        END IF;
+    END PROCESS;
 END DEC_ARCH;
