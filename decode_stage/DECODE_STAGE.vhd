@@ -111,7 +111,14 @@ BEGIN
     BEGIN
         IF (clk'EVENT AND clk = '1') THEN
             reg1 <= src_out1;
-            EA <= EA_IN;
+            -- in case of
+            --protect
+            --free
+            IF (op_code = "01" AND (function_code(2 DOWNTO 0) = "100" OR function_code(2 DOWNTO 0) = "000")) THEN
+                EA <= src_out1(19 DOWNTO 0);
+            ELSE
+                EA <= EA_IN;
+            END IF;
             out_currentPC <= in_currentPC;
             out_func <= function_code;
             out_wb_addr1 <= wb_addr_fetch1;
