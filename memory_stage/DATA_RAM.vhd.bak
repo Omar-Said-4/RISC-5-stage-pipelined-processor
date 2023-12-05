@@ -1,4 +1,5 @@
 LIBRARY IEEE;
+USE IEEE.numeric_std.ALL;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.STD_LOGIC_ARITH.ALL;
 USE IEEE.STD_LOGIC_UNSIGNED.ALL;
@@ -34,7 +35,7 @@ ARCHITECTURE sync_ram OF data_ram IS
   SIGNAL ram : ram_type := init_data_ram_hex;
   SIGNAL concat : STD_LOGIC_VECTOR(31 DOWNTO 0);
 BEGIN
-  concat <= (ram(conv_integer(addr)) & (ram(conv_integer(addr AND x"FFE") + 1)));
+  concat <= (ram(unsigned(addr)) & ram(unsigned(addr) + 1));
   data_out <= concat WHEN (re = '1' AND weh = '0' AND wel = '0' AND rstloc = '0')
     ELSE
     x"00000000";

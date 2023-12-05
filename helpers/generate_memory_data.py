@@ -1,8 +1,8 @@
 import random
 
-file_path = "../reg_bank_content_hex.txt"
+file_path = "../data_ram_content_hex.txt"
 
-num_words = 8
+num_words = 4096
 
 with open(file_path, "w") as file:
     for i in range(num_words):
