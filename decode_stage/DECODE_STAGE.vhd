@@ -124,7 +124,10 @@ BEGIN
             out_wb_addr1 <= wb_addr_fetch1;
             out_wb_addr2 <= wb_addr_fetch1;
             IF (in_is32BitInst = '0') THEN
-                reg2 <= data_in1;
+                -- i did this beacuse OR R2,R5 will give me error in reg2 value always    
+                reg2 <= src_out2;
+                -- why i did this    
+                -- reg2 <= data_in1;
             ELSE
                 reg2 <= extended_val;
             END IF;
