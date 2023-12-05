@@ -33,11 +33,13 @@ ARCHITECTURE sync_ram OF data_ram IS
   END FUNCTION;
   SIGNAL ram : ram_type := init_data_ram_hex;
 BEGIN
+  data_out <= ram(conv_integer(addr)) & ram(conv_integer(addr) + 1) WHEN (re = '1' AND weh = '0' AND wel = '0' AND rstloc = '0') ELSE
+    (OTHERS => '0');
   PROCESS (clk)
   BEGIN
     IF rising_edge(clk) THEN
       IF rstloc = '1' THEN
-        ram(conv_integer(addr)) <=x"0000";
+        ram(conv_integer(addr)) <= x"0000";
       END IF;
       IF weh = '1' AND rstloc = '0' THEN
         ram(conv_integer(addr)) <= data_in (31 DOWNTO 16);
@@ -45,9 +47,9 @@ BEGIN
       IF wel = '1' AND rstloc = '0' THEN
         ram(conv_integer(addr) + 1) <= data_in (15 DOWNTO 0);
       END IF;
-      IF re = '1' AND weh = '0' AND wel = '0' AND rstloc = '0' THEN
-        data_out <= ram(conv_integer(addr)) & ram(conv_integer(addr) + 1);
-      END IF;
+      -- IF re = '1' AND weh = '0' AND wel = '0' AND rstloc = '0' THEN
+      --   data_out <= ram(conv_integer(addr)) & ram(conv_integer(addr) + 1);
+      -- END IF;
     END IF;
   END PROCESS;
 END sync_ram;

@@ -91,15 +91,23 @@ BEGIN
         (STD_LOGIC_VECTOR(unsigned(sp) + to_unsigned(2, 12))) AND X"00000FFE"WHEN (push_pop = '0');
     weh <= mw AND (NOT higher_location_state);
     wel <= mw AND (NOT lower_location_state);
-    data_out1 <= mem_out WHEN (mr = '1') ELSE
-        io_out WHEN (ior = '1') ELSE
-        wb_data_out1;
+    -- data_out1 <= mem_out WHEN (mr = '1') ELSE
+    --     io_out WHEN (ior = '1') ELSE
+    --     wb_data_out1;
+    wb_data_out1 <= data_in1;
+
     data_out2 <= data_in2;
     jmp_m <= stack_operation AND (NOT push_pop);
     PROCESS (clk)
     BEGIN
         IF (rising_edge(clk)) THEN
-            wb_data_out1 <= data_in1;
+            IF (mr = '1') THEN
+                data_out1 <= mem_out;
+            ELSIF (ior = '1') THEN
+                data_out1 <= io_out;
+            ELSE
+                data_out1 <= wb_data_out1;
+            END IF;
             wb_address_out1 <= wb_address_in1;
             wb_address_out2 <= wb_address_in2;
             wb1_out <= wb1;
