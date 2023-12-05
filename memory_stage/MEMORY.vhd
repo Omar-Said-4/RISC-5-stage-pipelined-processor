@@ -66,6 +66,7 @@ ARCHITECTURE mem_stage OF memory IS
     SIGNAL wel : STD_LOGIC;
     SIGNAL mem_out : STD_LOGIC_VECTOR(31 DOWNTO 0);
     SIGNAL io_out : STD_LOGIC_VECTOR(31 DOWNTO 0);
+    SIGNAL wb_data_out1 : STD_LOGIC_VECTOR(31 DOWNTO 0);
 BEGIN
     comp_data_mem : data_ram PORT MAP(
         clk => clk,
@@ -91,12 +92,14 @@ BEGIN
     weh <= mw AND (NOT higher_location_state);
     wel <= mw AND (NOT lower_location_state);
     data_out1 <= mem_out WHEN (mr = '1') ELSE
-        io_out WHEN (ior = '1');
+        io_out WHEN (ior = '1') ELSE
+        wb_data_out1;
     data_out2 <= data_in2;
     jmp_m <= stack_operation AND (NOT push_pop);
     PROCESS (clk)
     BEGIN
         IF (rising_edge(clk)) THEN
+            wb_data_out1 <= data_in1;
             wb_address_out1 <= wb_address_in1;
             wb_address_out2 <= wb_address_in2;
             wb1_out <= wb1;

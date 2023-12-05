@@ -42,6 +42,8 @@ ARCHITECTURE CPU_ARCH OF CPU IS
             out_currentPC : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
             wb_addr1 : IN STD_LOGIC_VECTOR (2 DOWNTO 0);
             wb_addr2 : IN STD_LOGIC_VECTOR (2 DOWNTO 0);
+            wb_addr_fetch1 : IN STD_LOGIC_VECTOR (2 DOWNTO 0);
+            wb_addr_fetch2 : IN STD_LOGIC_VECTOR (2 DOWNTO 0);
             data_in1 : IN STD_LOGIC_VECTOR (31 DOWNTO 0);
             data_in2 : IN STD_LOGIC_VECTOR (31 DOWNTO 0);
             re_addr1 : IN STD_LOGIC_VECTOR (2 DOWNTO 0);
@@ -51,11 +53,11 @@ ARCHITECTURE CPU_ARCH OF CPU IS
             reg2 : OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
             op_code : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
             function_code : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
-            EA : OUT STD_LOGIC_VECTOR(19 DOWNTO 0);
             EA_IN : IN STD_LOGIC_VECTOR(19 DOWNTO 0);
+            EA : OUT STD_LOGIC_VECTOR(19 DOWNTO 0);
             out_func : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
-            out_wb_addr1 : IN STD_LOGIC_VECTOR (2 DOWNTO 0);
-            out_wb_addr2 : IN STD_LOGIC_VECTOR (2 DOWNTO 0);
+            out_wb_addr1 : OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
+            out_wb_addr2 : OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
             MR, MW, IOR, IOW, WB1, WB2, STACK_OPERATION, PUSH_POP, JUMP, CALL, RSTCTRL, PROTECT, FREE, ALU, RTI : OUT STD_LOGIC
         );
     END COMPONENT;
@@ -165,7 +167,7 @@ ARCHITECTURE CPU_ARCH OF CPU IS
     SIGNAL mem_wb_address1 : STD_LOGIC_VECTOR(2 DOWNTO 0);
     SIGNAL mem_wb_address2 : STD_LOGIC_VECTOR(2 DOWNTO 0);
 BEGIN
-    EA_CONCAT <= instr(22 DOWNTO 19) & instr(15 DOWNTO 0);
+    EA_CONCAT <= instr(15 DOWNTO 0) & instr(22 DOWNTO 19);
     u0 : Fetch PORT MAP(
         clk => clk,
         rst => rst,
@@ -189,6 +191,8 @@ BEGIN
         data_in2 => DATA_OUT2_M_W,
         re_addr1 => instr(25 DOWNTO 23),
         re_addr2 => instr(22 DOWNTO 20),
+        wb_addr_fetch1 => instr(28 DOWNTO 26),
+        wb_addr_fetch2 => instr(25 DOWNTO 23),
         reg1 => in_reg1,
         reg2 => in_reg2,
         op_code => instr(31 DOWNTO 30),

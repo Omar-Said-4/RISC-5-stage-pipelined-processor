@@ -12,6 +12,8 @@ ENTITY decode IS
         out_currentPC : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
         wb_addr1 : IN STD_LOGIC_VECTOR (2 DOWNTO 0);
         wb_addr2 : IN STD_LOGIC_VECTOR (2 DOWNTO 0);
+        wb_addr_fetch1 : IN STD_LOGIC_VECTOR (2 DOWNTO 0);
+        wb_addr_fetch2 : IN STD_LOGIC_VECTOR (2 DOWNTO 0);
         data_in1 : IN STD_LOGIC_VECTOR (31 DOWNTO 0);
         data_in2 : IN STD_LOGIC_VECTOR (31 DOWNTO 0);
         re_addr1 : IN STD_LOGIC_VECTOR (2 DOWNTO 0);
@@ -112,8 +114,8 @@ BEGIN
             EA <= EA_IN;
             out_currentPC <= in_currentPC;
             out_func <= function_code;
-            out_wb_addr1 <= wb_addr1;
-            out_wb_addr2 <= wb_addr2;
+            out_wb_addr1 <= wb_addr_fetch1;
+            out_wb_addr2 <= wb_addr_fetch1;
             IF (in_is32BitInst = '0') THEN
                 reg2 <= data_in1;
             ELSE

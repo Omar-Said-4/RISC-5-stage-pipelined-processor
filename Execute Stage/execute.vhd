@@ -92,6 +92,9 @@ BEGIN
                 CCR(2) <= cf;
                 dest1 <= out1;
                 dest2 <= out2;
+            ELSE
+                dest1 <= src1;
+                dest2 <= src2;
             END IF;
             IF ((callOp = '1') OR (jmpOp = '1') OR (jmpzOp = '1' AND CCR(2) = '1')) THEN
                 calledpc <= calledAddress;
