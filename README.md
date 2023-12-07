@@ -24,8 +24,6 @@ A RISC-like, five-stage pipeline processor implemented using VHDL, is based on t
 <img align="center"  src="https://github.com/Omar-Said-4/RISC-5-stage-pipelined-processor/assets/93356614/a7179f4c-488c-4cc1-a1d4-2a6fb6c22713">
 </div>
 
-()
-
 
 
 ## ISA
