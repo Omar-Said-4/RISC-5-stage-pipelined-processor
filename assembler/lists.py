@@ -8,13 +8,13 @@ is_immidiate = ['addi', 'rcl', 'rcr', 'bitset', 'ldm', 'ldd', 'std']
 
 regs = ['r0', 'r1', 'r2', 'r3', 'r4', 'r5', 'r6', 'r7']
 
-rdest= ['not', 'neg', 'dec', 'inc', 'swap', 'add', 'addi', 'sub', 'and', 'or', 'xor', 'bitset', 'rcl', 'rcr', 'ldm', 'ldd', 'pop', 'in']
+rdest= ['not', 'neg', 'dec', 'inc', 'add', 'addi', 'sub', 'and', 'or', 'xor', 'bitset', 'rcl', 'rcr', 'ldm', 'ldd', 'pop', 'in']
 
 rscr1= ['swap', 'add', 'addi', 'sub', 'and', 'or', 'xor', 'cmp', 'rcl', 'rcr', 'std', 'push', 'out', 'jz', 'jmp', 'call', 'protect', 'free']
 rdst_eq_rsrc1 = ['not', 'neg', 'dec', 'inc']
 rdst_eq_rsrc_imm = ['bitset', 'rcl', 'rcr']
 
-rscr2= ['add', 'sub', 'and', 'or', 'xor', 'cmp']
+rscr2= ['add', 'sub', 'and', 'or', 'xor', 'cmp','swap']
 ealow = ['std','ldd']
 eacat=['push', 'pop','std','ldd','protect','free']
 instruction_set = {

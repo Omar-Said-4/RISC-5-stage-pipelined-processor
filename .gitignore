@@ -4,3 +4,6 @@
 *.vstf
 work/
 wlf*
+vscode/
+*.json
+pycache/
