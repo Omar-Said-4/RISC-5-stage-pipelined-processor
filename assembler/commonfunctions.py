@@ -91,10 +91,8 @@ def extract_hexa(regex):
 
 def extract_EA(instr):
     if (instr[0] in ealow):
-        print(instr[2])
-        x=extract_hexa(instr[2])
-        print(x)
-        return convert_to_EA(x)[:4]
+        hexa=extract_hexa(instr[2])
+        return convert_to_EA(hexa)[:4]
     elif (instr[0] in eacat):
         return "0000"
     elif (instr[0] in is_immidiate):
