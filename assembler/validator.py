@@ -10,7 +10,11 @@ def check_regix(regex):
 
 
 def validate_instruction(instr):
-    if instr[0] in one_operand_insts:
+    if instr[0] in no_operand_insts:
+        if len(instr) != 1:
+            return False
+        return True
+    elif instr[0] in one_operand_insts:
         if len(instr) != 2:
             return False
         if not instr[1] in regs:
@@ -45,16 +49,6 @@ def validate_instruction(instr):
     else:
         return False           
 
-processed_lines = []
-# Read the file
-def read_from_file(file_name):
-    with open(file_name, 'r') as file:
-        lines = file.readlines()
-        # Replace commas with spaces, extract each line, and split by space
-        for line in lines:
-            if line.strip() and not line.startswith('#'):
-                line = line.lower().replace(',', ' ')
-                processed_lines.append(line.split())
 
 
 

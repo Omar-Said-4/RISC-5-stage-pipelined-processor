@@ -1,5 +1,5 @@
 one_operand_insts = ['not', 'neg','dec','inc', 'out', 'in', 'jz', 'jmp', 'call', 'protect', 'free', 'push', 'pop']
-
+no_operand_insts = ['nop', 'ret', 'rti']
 two_operand_insts = ['swap', 'cmp', 'bitset', 'rcl', 'rcr', 'ldm', 'ldd', 'std', 'std']
 
 three_operand_insts = ['add', 'addi', 'sub', 'and', 'or', 'xor']
@@ -8,6 +8,15 @@ is_immidiate = ['addi', 'rcl', 'rcr', 'bitset', 'ldm', 'ldd', 'std']
 
 regs = ['r0', 'r1', 'r2', 'r3', 'r4', 'r5', 'r6', 'r7']
 
+rdest= ['not', 'neg', 'dec', 'inc', 'swap', 'add', 'addi', 'sub', 'and', 'or', 'xor', 'bitset', 'rcl', 'rcr', 'ldm', 'ldd', 'pop', 'in']
+
+rscr1= ['swap', 'add', 'addi', 'sub', 'and', 'or', 'xor', 'cmp', 'rcl', 'rcr', 'std', 'push', 'out', 'jz', 'jmp', 'call', 'protect', 'free']
+rdst_eq_rsrc1 = ['not', 'neg', 'dec', 'inc']
+rdst_eq_rsrc_imm = ['bitset', 'rcl', 'rcr']
+
+rscr2= ['add', 'sub', 'and', 'or', 'xor', 'cmp']
+ealow = ['std','ldd']
+eacat=['push', 'pop','std','ldd','protect','free']
 instruction_set = {
     "not": "00",
     "neg": "00",
@@ -47,8 +56,8 @@ function_set = {
     "neg": "0001",
     "inc": "0010",
     "dec": "0011",
-    "add": "0101",
-    "addi": "0100",
+    "add": "0100",
+    "addi": "0101",
     "sub": "0110",
     "and": "0111",
     "xor": "1000",
@@ -58,7 +67,20 @@ function_set = {
     "rcr": "1100",
     "rcl": "1101",
     "swap": "1110",
-    "ldm": "1111"
+    "ldm": "1111",
+    "push":"110",
+    "pop":"111",
+    "std":"010",
+    "ldd":"011",
+    "protect":"100",
+    "free":"000",
+    "in":"000",
+    "out":"001",
+    "call":"000",
+    "jmp":"110",
+    "jz":"010",
+    "ret":"101",
+    "rti":"001"
 }
 
 register_bank = {}
