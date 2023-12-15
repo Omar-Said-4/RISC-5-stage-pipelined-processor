@@ -1,0 +1,6 @@
+The following addresses are in hexadecimal format:
+00000000: add r0 r1 r2
+00000001: addi r0 r1 3'h
+00000003: nop
+00000004: ldd r4 10101'h
+00000006: or r4 r5 r3

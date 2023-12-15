@@ -1,7 +1,7 @@
 one_operand_insts = ['not', 'neg','dec','inc', 'out', 'in', 'jz', 'jmp', 'call', 'protect', 'free', 'push', 'pop']
 no_operand_insts = ['nop', 'ret', 'rti']
 two_operand_insts = ['swap', 'cmp', 'bitset', 'rcl', 'rcr', 'ldm', 'ldd', 'std', 'std']
-
+thirty2_bit_inst=  ['addi','bitset','rcr','rcl', 'ldm','std','ldd','ldm', 'ldd', 'std', 'std']
 three_operand_insts = ['add', 'addi', 'sub', 'and', 'or', 'xor']
 
 is_immidiate = ['addi', 'rcl', 'rcr', 'bitset', 'ldm', 'ldd', 'std']

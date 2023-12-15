@@ -155,3 +155,23 @@ def convert_to_binary(processed_lines)->[]:
             extract_16bits(line,bits)
             bits.append('$')   
     return bits         
+
+address = 0
+addresses = ['The following addresses are in hexadecimal format:']
+def get_addresses(instrs):
+    for instr in instrs:
+        global address
+        hexadecimal_string = hex(address)[2:].zfill(8)
+        addresses.append(hexadecimal_string + ': ' + ' '.join(instr))
+        if(address>4095):
+            print("Error: Address out of range")
+            return
+        if (instr[0] in thirty2_bit_inst):
+            address += 2
+        else:
+            address += 1
+
+def write_addresses_to_file():
+    with open('addresses.txt', 'w') as file:
+        for item in addresses:
+            file.write(str(item) + "\n")
