@@ -15,8 +15,8 @@ ENTITY memory IS
         effective_address : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
         data_in1 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
         data_in2 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-        ior : IN STD_LOGIC;
-        iow : IN STD_LOGIC;
+        -- ior : IN STD_LOGIC;
+        -- iow : IN STD_LOGIC;
         wb1 : IN STD_LOGIC;
         wb2 : IN STD_LOGIC;
         wb1_out : OUT STD_LOGIC;
@@ -56,8 +56,8 @@ ARCHITECTURE mem_stage OF memory IS
 
     ------------------------------------------------------------------------------------------------
     SIGNAL sp : STD_LOGIC_VECTOR(31 DOWNTO 0) := X"00000FFE";
-    SIGNAL IN_PORT : STD_LOGIC_VECTOR(31 DOWNTO 0);
-    SIGNAL OUT_PORT : STD_LOGIC_VECTOR(31 DOWNTO 0);
+    -- SIGNAL IN_PORT : STD_LOGIC_VECTOR(31 DOWNTO 0);
+    -- SIGNAL OUT_PORT : STD_LOGIC_VECTOR(31 DOWNTO 0);
     ------------------------------------------------------------------------------------------------
     SIGNAL ram_addr_in : STD_LOGIC_VECTOR(31 DOWNTO 0);
     SIGNAL higher_location_state : STD_LOGIC;
@@ -65,7 +65,7 @@ ARCHITECTURE mem_stage OF memory IS
     SIGNAL weh : STD_LOGIC;
     SIGNAL wel : STD_LOGIC;
     SIGNAL mem_out : STD_LOGIC_VECTOR(31 DOWNTO 0);
-    SIGNAL io_out : STD_LOGIC_VECTOR(31 DOWNTO 0);
+    -- SIGNAL io_out : STD_LOGIC_VECTOR(31 DOWNTO 0);
     SIGNAL wb_data_out1 : STD_LOGIC_VECTOR(31 DOWNTO 0);
 BEGIN
     comp_data_mem : data_ram PORT MAP(
@@ -103,8 +103,8 @@ BEGIN
         IF (rising_edge(clk)) THEN
             IF (mr = '1') THEN
                 data_out1 <= mem_out;
-            ELSIF (ior = '1') THEN
-                data_out1 <= io_out;
+                -- ELSIF (ior = '1') THEN
+                --     data_out1 <= io_out;
             ELSE
                 data_out1 <= wb_data_out1;
             END IF;
@@ -119,11 +119,11 @@ BEGIN
                     sp <= (STD_LOGIC_VECTOR(unsigned(sp) + to_unsigned(2, sp'length)) AND X"00000FFE");
                 END IF;
             END IF;
-            IF (iow = '1') THEN
-                OUT_PORT <= data_in1;
-            ELSIF (ior = '1') THEN
-                io_out <= IN_PORT;
-            END IF;
+            -- IF (iow = '1') THEN
+            --     OUT_PORT <= data_in1;
+            -- ELSIF (ior = '1') THEN
+            --     io_out <= IN_PORT;
+            -- END IF;
         END IF;
     END PROCESS;
 END mem_stage;

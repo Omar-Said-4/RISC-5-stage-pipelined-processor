@@ -67,25 +67,28 @@ ARCHITECTURE CPU_ARCH OF CPU IS
             src1, src2 : IN STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
             AluOp : IN STD_LOGIC;
             callOp : IN STD_LOGIC;
-            in_wb_addr1 : IN STD_LOGIC_VECTOR (2 DOWNTO 0);
-            in_wb_addr2 : IN STD_LOGIC_VECTOR (2 DOWNTO 0);
+            ior : IN STD_LOGIC;
+            iow : IN STD_LOGIC;
             calledAddress : IN STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
             currentpc : IN STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
             jmpOp : IN STD_LOGIC;
             jmpzOp : IN STD_LOGIC;
             func : IN STD_LOGIC_VECTOR (3 DOWNTO 0);
             in_EA : IN STD_LOGIC_VECTOR(19 DOWNTO 0);
-            in_MR, in_MW, in_IOR, in_IOW, in_WB1, in_WB2, in_STACK_OPERATION, in_PUSH_POP, in_RSTCTRL, in_PROTECT, in_FREE, in_RTI : IN STD_LOGIC;
+            in_wb_addr1 : IN STD_LOGIC_VECTOR (2 DOWNTO 0);
+            in_wb_addr2 : IN STD_LOGIC_VECTOR (2 DOWNTO 0);
+            in_MR, in_MW, in_WB1, in_WB2, in_STACK_OPERATION, in_PUSH_POP, in_RSTCTRL, in_PROTECT, in_FREE, in_RTI : IN STD_LOGIC;
             dest1 : OUT STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
             dest2 : OUT STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
             calledpc : OUT STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
             savedpc : OUT STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
-            out_wb_addr1 : OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
-            out_wb_addr2 : OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
             -- remember to add isjmp out signal
             isjmp : OUT STD_LOGIC;
+            out_wb_addr1 : OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
+            out_wb_addr2 : OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
+            -- change to 31 bit instaed of 19
             out_EA : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
-            out_MR, out_MW, out_IOR, out_IOW, out_WB1, out_WB2, out_STACK_OPERATION, out_PUSH_POP, out_RSTCTRL, out_PROTECT, out_FREE, out_RTI : OUT STD_LOGIC
+            out_MR, out_MW, out_WB1, out_WB2, out_STACK_OPERATION, out_PUSH_POP, out_RSTCTRL, out_PROTECT, out_FREE, out_RTI : OUT STD_LOGIC
         );
     END COMPONENT;
     COMPONENT memory IS
@@ -100,8 +103,8 @@ ARCHITECTURE CPU_ARCH OF CPU IS
             effective_address : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
             data_in1 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
             data_in2 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-            ior : IN STD_LOGIC;
-            iow : IN STD_LOGIC;
+            -- ior : IN STD_LOGIC;
+            -- iow : IN STD_LOGIC;
             wb1 : IN STD_LOGIC;
             wb2 : IN STD_LOGIC;
             wb1_out : OUT STD_LOGIC;
@@ -130,7 +133,8 @@ ARCHITECTURE CPU_ARCH OF CPU IS
     SIGNAL E_M_EA : STD_LOGIC_VECTOR(31 DOWNTO 0);
     SIGNAL E_M_wb_addr1 : STD_LOGIC_VECTOR (2 DOWNTO 0);
     SIGNAL E_M_wb_addr2 : STD_LOGIC_VECTOR (2 DOWNTO 0);
-    SIGNAL E_M_MR, E_M_MW, E_M_IOR, E_M_IOW, E_M_WB1, E_M_WB2, E_M_STACK_OPERATION, E_M_PUSH_POP, E_M_RSTCTRL, E_M_PROTECT, E_M_FREE, E_M_RTI : STD_LOGIC;
+    SIGNAL D_E_IOR, D_E_IOW : STD_LOGIC;
+    SIGNAL E_M_MR, E_M_MW, E_M_WB1, E_M_WB2, E_M_STACK_OPERATION, E_M_PUSH_POP, E_M_RSTCTRL, E_M_PROTECT, E_M_FREE, E_M_RTI : STD_LOGIC;
     --end of execute signals--
     SIGNAL F_D_out_is32BitInst : STD_LOGIC;
     SIGNAL F_D_immediate : STD_LOGIC_VECTOR(15 DOWNTO 0);
@@ -142,8 +146,8 @@ ARCHITECTURE CPU_ARCH OF CPU IS
     SIGNAL D_E_func : STD_LOGIC_VECTOR(3 DOWNTO 0);
     SIGNAL in_mr : STD_LOGIC;
     SIGNAL in_mw : STD_LOGIC;
-    SIGNAL in_ior : STD_LOGIC;
-    SIGNAL in_iow : STD_LOGIC;
+    -- SIGNAL in_ior : STD_LOGIC;
+    -- SIGNAL in_iow : STD_LOGIC;
     SIGNAL in_wb1 : STD_LOGIC;
     SIGNAL in_wb2 : STD_LOGIC;
     SIGNAL in_stack_operation : STD_LOGIC;
@@ -201,8 +205,8 @@ BEGIN
         MW => in_mw,
         EA_IN => EA_CONCAT,
         EA => EA_IN_EXE,
-        IOR => in_ior,
-        IOW => in_iow,
+        IOR => D_E_IOR,
+        IOW => D_E_IOW,
         WB1 => in_wb1,
         WB2 => in_wb2,
         STACK_OPERATION => in_stack_operation,
@@ -235,8 +239,8 @@ BEGIN
         in_EA => EA_IN_EXE,
         in_MR => in_mr,
         in_MW => in_mw,
-        in_IOR => in_ior,
-        in_IOW => in_iow,
+        IOR => D_E_IOR,
+        IOW => D_E_IOW,
         in_WB1 => in_wb1,
         in_WB2 => in_wb2,
         in_STACK_OPERATION => in_stack_operation,
@@ -253,8 +257,6 @@ BEGIN
         out_EA => E_M_EA,
         out_MR => E_M_MR,
         out_MW => E_M_MW,
-        out_IOR => E_M_IOR,
-        out_IOW => E_M_IOW,
         out_WB1 => E_M_WB1,
         out_WB2 => E_M_WB2,
         out_STACK_OPERATION => E_M_STACK_OPERATION,
@@ -277,8 +279,8 @@ BEGIN
         effective_address => E_M_EA,
         data_in1 => E_M_dest1,
         data_in2 => E_M_dest2,
-        ior => E_M_IOR,
-        iow => E_M_IOW,
+        -- ior => E_M_IOR,
+        -- iow => E_M_IOW,
         wb1 => E_M_WB1,
         wb2 => E_M_WB2,
         wb1_out => WB1_INTERMEDIATE,

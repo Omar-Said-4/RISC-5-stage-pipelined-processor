@@ -100,7 +100,11 @@ BEGIN
                 MW <= '0';
                 IOR <= NOT function_code(0);
                 IOW <= function_code(0);
-                WB1 <= '0';
+                IF function_code(2 DOWNTO 0) = "000" THEN
+                    WB1 <= '1';
+                ELSE
+                    WB1 <= '0';
+                END IF;
                 WB2 <= '0';
                 ALU <= '0';
                 RTI <= '0';
