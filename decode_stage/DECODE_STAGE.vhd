@@ -28,7 +28,7 @@ ENTITY decode IS
         out_func : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
         out_wb_addr1 : OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
         out_wb_addr2 : OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
-        MR, MW, IOR, IOW, WB1, WB2, STACK_OPERATION, PUSH_POP, JUMP, CALL, RSTCTRL, PROTECT, FREE, ALU, RTI : OUT STD_LOGIC
+        MR, MW, IOR, IOW, WB1, WB2, STACK_OPERATION, PUSH_POP, JUMP, CALL, RSTCTRL, PROTECT, FREE, ALU, RTI, JZ, RET : OUT STD_LOGIC
     );
 END decode;
 ARCHITECTURE DEC_ARCH OF decode IS
@@ -37,7 +37,7 @@ ARCHITECTURE DEC_ARCH OF decode IS
             clk, reset : IN STD_LOGIC;
             op_code : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
             function_code : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
-            MR, MW, IOR, IOW, WB1, WB2, STACK_OPERATION, PUSH_POP, JUMP, CALL, RSTCTRL, PROTECT, FREE, ALU, RTI : OUT STD_LOGIC
+            MR, MW, IOR, IOW, WB1, WB2, STACK_OPERATION, PUSH_POP, JUMP, CALL, RSTCTRL, PROTECT, FREE, ALU, RTI, JZ, RET : OUT STD_LOGIC
         );
     END COMPONENT;
     COMPONENT REG_BANK IS
@@ -103,7 +103,9 @@ BEGIN
         PROTECT => PROTECT,
         FREE => FREE,
         ALU => ALU,
-        RTI => RTI
+        RTI => RTI,
+        JZ => JZ,
+        RET => RET
     );
     -- reg2 <= src_out2 WHEN in_is32BitInst = '0' ELSE
     --     x"0000" & immediate;

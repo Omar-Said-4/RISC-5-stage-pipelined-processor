@@ -1,3 +1,1 @@
-IN r5
-DEC r3
-OUT R1 
+RET

@@ -1,4 +1,2 @@
 The following addresses are in hexadecimal format:
-00000000: in r5
-00000001: dec r3
-00000002: out r1
+00000000: ret

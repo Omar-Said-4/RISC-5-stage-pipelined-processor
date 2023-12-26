@@ -9,7 +9,11 @@ ENTITY Fetch IS
         fetch_out : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
         currentPC : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
         out_is32BitInst : OUT STD_LOGIC;
-        out_immediate : OUT STD_LOGIC_VECTOR(15 DOWNTO 0)
+        out_immediate : OUT STD_LOGIC_VECTOR(15 DOWNTO 0);
+        is_jmp_execute : IN STD_LOGIC;
+        jmp_execute_address : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+        is_jmp_mem : IN STD_LOGIC;
+        jmp_mem_address : IN STD_LOGIC_VECTOR(31 DOWNTO 0)
     );
 
 END ENTITY;
@@ -57,7 +61,13 @@ BEGIN
                 out_is32BitInst <= '0';
             END IF;
             currentPC <= PC;
-            PC <= STD_LOGIC_VECTOR(unsigned(PC) + 1);
+            IF is_jmp_mem = '1' THEN
+                PC <= jmp_mem_address;
+            ELSIF is_jmp_execute = '1' THEN
+                PC <= jmp_execute_address;
+            ELSE
+                PC <= STD_LOGIC_VECTOR(unsigned(PC) + 1);
+            END IF;
         END IF;
     END PROCESS;
 

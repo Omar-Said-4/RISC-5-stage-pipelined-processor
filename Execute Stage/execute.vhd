@@ -18,18 +18,19 @@ ENTITY Execute IS
         in_EA : IN STD_LOGIC_VECTOR(19 DOWNTO 0);
         in_wb_addr1 : IN STD_LOGIC_VECTOR (2 DOWNTO 0);
         in_wb_addr2 : IN STD_LOGIC_VECTOR (2 DOWNTO 0);
-        in_MR, in_MW, in_WB1, in_WB2, in_STACK_OPERATION, in_PUSH_POP, in_RSTCTRL, in_PROTECT, in_FREE, in_RTI : IN STD_LOGIC;
+        in_MR, in_MW, in_WB1, in_WB2, in_STACK_OPERATION, in_PUSH_POP, in_RSTCTRL, in_PROTECT, in_FREE, in_RTI, in_RET : IN STD_LOGIC;
         dest1 : OUT STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
         dest2 : OUT STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
         calledpc : OUT STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
-        savedpc : OUT STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
+        fetched_jmp_address : OUT STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
+        fetched_is_jmp : OUT STD_LOGIC;
         -- remember to add isjmp out signal
-        isjmp : OUT STD_LOGIC;
+        out_callOp : OUT STD_LOGIC;
         out_wb_addr1 : OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
         out_wb_addr2 : OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
         -- change to 31 bit instaed of 19
         out_EA : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
-        out_MR, out_MW, out_WB1, out_WB2, out_STACK_OPERATION, out_PUSH_POP, out_RSTCTRL, out_PROTECT, out_FREE, out_RTI : OUT STD_LOGIC
+        out_MR, out_MW, out_WB1, out_WB2, out_STACK_OPERATION, out_PUSH_POP, out_RSTCTRL, out_PROTECT, out_FREE, out_RTI, out_RET : OUT STD_LOGIC
     );
 END ENTITY Execute;
 
@@ -68,6 +69,8 @@ ARCHITECTURE ArchExecute OF Execute IS
     SIGNAL mid_EA : STD_LOGIC_VECTOR(31 DOWNTO 0);
     SIGNAL IN_PORT : STD_LOGIC_VECTOR(31 DOWNTO 0) := x"00000000";
     SIGNAL OUT_PORT : STD_LOGIC_VECTOR(31 DOWNTO 0);
+    SIGNAL savedpc : STD_LOGIC_VECTOR (31 DOWNTO 0);
+
 BEGIN
     u0 : ALU GENERIC MAP(n) PORT MAP(src1, src2, func, out1, out2, zf, nf, cf);
     u1 : FullAdder GENERIC MAP(n) PORT MAP(currentpc, x"00000001", '0', '0', savedpc, OPEN);
@@ -88,6 +91,7 @@ BEGIN
             out_PROTECT <= in_PROTECT;
             out_FREE <= in_FREE;
             out_RTI <= in_RTI;
+            out_RET <= in_RET;
             out_wb_addr1 <= in_wb_addr1;
             out_wb_addr2 <= in_wb_addr2;
             IF (AluOp = '1') THEN
@@ -99,15 +103,24 @@ BEGIN
             ELSIF (ior = '1') THEN
                 dest1 <= IN_PORT;
                 dest2 <= src2;
+            ELSIF (callOp = '1') THEN
+                dest1 <= savedpc;
+                dest2 <= src2;
             ELSE
                 dest1 <= src1;
                 dest2 <= src2;
             END IF;
-            IF ((callOp = '1') OR (jmpOp = '1') OR (jmpzOp = '1' AND CCR(2) = '1')) THEN
-                calledpc <= calledAddress;
-                isjmp <= '1';
+            IF ((jmpOp = '1') OR (jmpzOp = '1' AND CCR(0) = '1')) THEN
+                fetched_jmp_address <= src1;
+                fetched_is_jmp <= '1';
             ELSE
-                isjmp <= '0';
+                fetched_is_jmp <= '0';
+            END IF;
+            IF (callOp = '1') THEN
+                calledpc <= calledAddress;
+                out_callOp <= '1';
+            ELSE
+                out_callOp <= '0';
             END IF;
             out_EA <= mid_EA;
         END IF;
