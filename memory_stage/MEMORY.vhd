@@ -15,10 +15,14 @@ ENTITY memory IS
         effective_address : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
         data_in1 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
         data_in2 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-        ior : IN STD_LOGIC;
-        iow : IN STD_LOGIC;
+
+        in_RTI_signal : IN STD_LOGIC;
         wb1 : IN STD_LOGIC;
         wb2 : IN STD_LOGIC;
+        out_jmp_fetch_mem : OUT STD_LOGIC;
+        out_jmp_fetch_mem_addr : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+        in_call_signal : IN STD_LOGIC;
+        in_RET_signal : IN STD_LOGIC;
         wb1_out : OUT STD_LOGIC;
         wb2_out : OUT STD_LOGIC;
         wb_address_in1 : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
@@ -27,7 +31,9 @@ ENTITY memory IS
         wb_address_out2 : OUT STD_LOGIC_VECTOR(2 DOWNTO 0);
         data_out1 : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
         data_out2 : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
-        jmp_m : OUT STD_LOGIC
+        jmp_m : OUT STD_LOGIC;
+        out_RTI : OUT STD_LOGIC;
+        in_calledpc : IN STD_LOGIC_VECTOR(31 DOWNTO 0)
     );
 END memory;
 
@@ -51,13 +57,12 @@ ARCHITECTURE mem_stage OF memory IS
             clk : IN STD_LOGIC;
             unlock : IN STD_LOGIC;
             higher_location_state : OUT STD_LOGIC;
-            lower_location_state : OUT STD_LOGIC);
+            lower_location_state : OUT STD_LOGIC
+        );
     END COMPONENT;
 
     ------------------------------------------------------------------------------------------------
     SIGNAL sp : STD_LOGIC_VECTOR(31 DOWNTO 0) := X"00000FFE";
-    SIGNAL IN_PORT : STD_LOGIC_VECTOR(31 DOWNTO 0);
-    SIGNAL OUT_PORT : STD_LOGIC_VECTOR(31 DOWNTO 0);
     ------------------------------------------------------------------------------------------------
     SIGNAL ram_addr_in : STD_LOGIC_VECTOR(31 DOWNTO 0);
     SIGNAL higher_location_state : STD_LOGIC;
@@ -65,7 +70,7 @@ ARCHITECTURE mem_stage OF memory IS
     SIGNAL weh : STD_LOGIC;
     SIGNAL wel : STD_LOGIC;
     SIGNAL mem_out : STD_LOGIC_VECTOR(31 DOWNTO 0);
-    SIGNAL io_out : STD_LOGIC_VECTOR(31 DOWNTO 0);
+    -- SIGNAL io_out : STD_LOGIC_VECTOR(31 DOWNTO 0);
     SIGNAL wb_data_out1 : STD_LOGIC_VECTOR(31 DOWNTO 0);
 BEGIN
     comp_data_mem : data_ram PORT MAP(
@@ -91,9 +96,7 @@ BEGIN
         (STD_LOGIC_VECTOR(unsigned(sp) + to_unsigned(2, 12))) AND X"00000FFE"WHEN (push_pop = '0');
     weh <= mw AND (NOT higher_location_state);
     wel <= mw AND (NOT lower_location_state);
-    -- data_out1 <= mem_out WHEN (mr = '1') ELSE
-    --     io_out WHEN (ior = '1') ELSE
-    --     wb_data_out1;
+
     wb_data_out1 <= data_in1;
 
     data_out2 <= data_in2;
@@ -103,8 +106,8 @@ BEGIN
         IF (rising_edge(clk)) THEN
             IF (mr = '1') THEN
                 data_out1 <= mem_out;
-            ELSIF (ior = '1') THEN
-                data_out1 <= io_out;
+            ELSIF (in_call_signal = '1') THEN
+                data_out1 <= in_calledpc;
             ELSE
                 data_out1 <= wb_data_out1;
             END IF;
@@ -119,10 +122,8 @@ BEGIN
                     sp <= (STD_LOGIC_VECTOR(unsigned(sp) + to_unsigned(2, sp'length)) AND X"00000FFE");
                 END IF;
             END IF;
-            IF (iow = '1') THEN
-                OUT_PORT <= data_in1;
-            ELSIF (ior = '1') THEN
-                io_out <= IN_PORT;
+            IF (in_call_signal = '1' OR in_RET_signal = '1' OR in_RTI_signal = '1') THEN
+                out_jmp_fetch_mem <= '1';
             END IF;
         END IF;
     END PROCESS;
