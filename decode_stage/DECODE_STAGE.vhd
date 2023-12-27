@@ -109,9 +109,17 @@ BEGIN
     );
     -- reg2 <= src_out2 WHEN in_is32BitInst = '0' ELSE
     --     x"0000" & immediate;
-    PROCESS (clk)
+    PROCESS (clk, reset)
     BEGIN
-        IF (clk'EVENT AND clk = '1') THEN
+        IF (reset = '1') THEN
+            reg1 <= (OTHERS => '0');
+            reg2 <= (OTHERS => '0');
+            EA <= (OTHERS => '0');
+            out_currentPC <= (OTHERS => '0');
+            out_func <= (OTHERS => '0');
+            out_wb_addr1 <= (OTHERS => '0');
+            out_wb_addr2 <= (OTHERS => '0');
+        ELSIF (clk'EVENT AND clk = '1') THEN
             reg1 <= src_out1;
             -- in case of
             --protect

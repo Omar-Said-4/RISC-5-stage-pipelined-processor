@@ -31,7 +31,7 @@ BEGIN
     PROCESS (clk, rst) IS
     BEGIN
         IF rst = '1' THEN
-            InstMemory <= (OTHERS => (OTHERS => '0'));
+            InstMemory <= (OTHERS => (OTHERS => '1'));
         END IF;
     END PROCESS;
 

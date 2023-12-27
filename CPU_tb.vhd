@@ -9,18 +9,18 @@ ARCHITECTURE behavior OF cpu_tb IS
         PORT (
             clk : IN STD_LOGIC;
             INT : IN STD_LOGIC;
-            RST : IN STD_LOGIC
+            reset : IN STD_LOGIC
         );
     END COMPONENT;
 
     SIGNAL clk : STD_LOGIC := '1';
-    SIGNAL rst, int : STD_LOGIC;
+    SIGNAL reset, int : STD_LOGIC;
 BEGIN
     uut : cpu GENERIC MAP(
         n) PORT MAP(
         clk => clk,
         INT => INT,
-        RST => RST
+        reset => reset
     );
 
     clk_process : PROCESS
@@ -31,10 +31,10 @@ BEGIN
 
     stim_proc : PROCESS
     BEGIN
-        RST <= '0';
         INT <= '0';
-        -- WAIT FOR 10 ns;
-        -- RST <= '1';
+        reset <= '1';
+        WAIT FOR 200 ps;
+        reset <= '0';
         -- WAIT FOR 10 ns;
         -- RST <= '0';
         -- WAIT FOR 100 ns;

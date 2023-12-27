@@ -5,6 +5,7 @@ ENTITY Execute IS
     GENERIC (n : INTEGER := 32);
     PORT (
         clk : IN STD_LOGIC;
+        reset : IN STD_LOGIC;
         src1, src2 : IN STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
         AluOp : IN STD_LOGIC;
         callOp : IN STD_LOGIC;
@@ -77,7 +78,31 @@ BEGIN
     u2 : effective_address_signextend PORT MAP(in_EA, mid_EA);
     PROCESS (clk)
     BEGIN
-        IF rising_edge(clk) THEN
+        IF (reset = '1') THEN
+            CCR <= "000";
+            OUT_PORT <= x"00000000";
+            IN_PORT <= x"00000000";
+            out_MR <= '0';
+            out_MW <= '0';
+            out_WB1 <= '0';
+            out_WB2 <= '0';
+            out_STACK_OPERATION <= '0';
+            out_PUSH_POP <= '0';
+            out_RSTCTRL <= '0';
+            out_PROTECT <= '0';
+            out_FREE <= '0';
+            out_RTI <= '0';
+            out_RET <= '0';
+            out_wb_addr1 <= "000";
+            out_wb_addr2 <= "000";
+            out_callOp <= '0';
+            out_EA <= x"00000000";
+            fetched_jmp_address <= x"00000000";
+            fetched_is_jmp <= '0';
+            dest1 <= x"00000000";
+            dest2 <= x"00000000";
+            calledpc <= x"00000000";
+        ELSIF rising_edge(clk) THEN
             IF (iow = '1') THEN
                 OUT_PORT <= src1;
             END IF;

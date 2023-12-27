@@ -6,6 +6,7 @@ ENTITY Fetch IS
     PORT (
         clk : IN STD_LOGIC;
         rst : IN STD_LOGIC;
+        reset : IN STD_LOGIC;
         fetch_out : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
         currentPC : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
         out_is32BitInst : OUT STD_LOGIC;
@@ -38,10 +39,12 @@ BEGIN
 
     InstMem : InstMemory PORT MAP(clk, rst, '0', PC(15 DOWNTO 0), memOut);
 
-    PROCESS (clk, rst) IS
+    PROCESS (clk, reset) IS
     BEGIN
-        IF rst = '1' THEN
+        IF reset = '1' THEN
             PC <= (OTHERS => '0');
+            fetch_out <= (OTHERS => '1'); -- NOPE
+            out_is32BitInst <= '0';
         ELSIF rising_edge(clk) THEN
             IF memOut(13) = '1' AND is32BitInst = '0' THEN -- is 32 bit Instruction
                 fetch_out <= (OTHERS => '1'); -- NOPE

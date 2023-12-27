@@ -7,7 +7,7 @@ ENTITY CPU IS
     PORT (
         clk : IN STD_LOGIC;
         INT : IN STD_LOGIC;
-        RST : IN STD_LOGIC
+        reset : IN STD_LOGIC
     );
 END ENTITY CPU;
 
@@ -15,6 +15,7 @@ ARCHITECTURE CPU_ARCH OF CPU IS
     COMPONENT Fetch IS
         PORT (
             clk : IN STD_LOGIC;
+            reset : IN STD_LOGIC;
             rst : IN STD_LOGIC;
             fetch_out : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
             currentPC : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
@@ -59,6 +60,7 @@ ARCHITECTURE CPU_ARCH OF CPU IS
     COMPONENT Execute IS
         PORT (
             clk : IN STD_LOGIC;
+            reset : IN STD_LOGIC;
             src1, src2 : IN STD_LOGIC_VECTOR (n - 1 DOWNTO 0);
             AluOp : IN STD_LOGIC;
             callOp : IN STD_LOGIC;
@@ -120,7 +122,7 @@ ARCHITECTURE CPU_ARCH OF CPU IS
             in_calledpc : IN STD_LOGIC_VECTOR(31 DOWNTO 0)
         );
     END COMPONENT;
-
+    SIGNAL mid_rst : STD_LOGIC;
     --start of decode signals--
     SIGNAL D_E_wb_addr1 : STD_LOGIC_VECTOR (2 DOWNTO 0);
     SIGNAL D_E_wb_addr2 : STD_LOGIC_VECTOR (2 DOWNTO 0);
@@ -186,7 +188,8 @@ BEGIN
     EA_CONCAT <= instr(15 DOWNTO 0) & instr(22 DOWNTO 19);
     u0 : Fetch PORT MAP(
         clk => clk,
-        rst => rst,
+        reset => reset,
+        rst => mid_rst,
         fetch_out => instr,
         currentPC => F_D_currentPC,
         out_is32BitInst => F_D_out_is32BitInst,
@@ -198,7 +201,7 @@ BEGIN
     );
     u1 : decode PORT MAP(
         clk => clk,
-        reset => rst,
+        reset => reset,
         in_is32BitInst => F_D_out_is32BitInst,
         immediate => F_D_immediate,
         in_currentPC => F_D_currentPC,
@@ -243,6 +246,7 @@ BEGIN
     u2 : Execute GENERIC MAP(
         n) PORT MAP(
         clk => clk,
+        reset => reset,
         src1 => in_reg1,
         src2 => in_reg2,
         AluOp => in_aluop,
