@@ -82,7 +82,7 @@ BEGIN
             CCR <= "000";
             OUT_PORT <= x"00000000";
             IN_PORT <= x"00000000";
-            out_MR <= '0';
+            out_MR <= '1';
             out_MW <= '0';
             out_WB1 <= '0';
             out_WB2 <= '0';

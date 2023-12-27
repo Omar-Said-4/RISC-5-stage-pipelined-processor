@@ -5,7 +5,7 @@ USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.NUMERIC_STD.ALL;
 ENTITY memory IS
     PORT (
-        clk : IN STD_LOGIC;
+        clk, reset : IN STD_LOGIC;
         mr : IN STD_LOGIC;
         mw : IN STD_LOGIC;
         protect : IN STD_LOGIC;
@@ -101,9 +101,20 @@ BEGIN
 
     data_out2 <= data_in2;
     jmp_m <= stack_operation AND (NOT push_pop);
-    PROCESS (clk)
+    PROCESS (clk, reset)
     BEGIN
-        IF (rising_edge(clk)) THEN
+        IF (reset = '1') THEN
+            out_jmp_fetch_mem <= '0';
+            out_jmp_fetch_mem_addr <= (OTHERS => '0');
+            out_RTI <= '0';
+            out_jmp_fetch_mem <= '0';
+            wb_address_out1 <= (OTHERS => '0');
+            wb_address_out2 <= (OTHERS => '0');
+            wb1_out <= '0';
+            wb2_out <= '0';
+            out_RTI <= '0';
+            data_out1 <= mem_out;
+        ELSIF (rising_edge(clk)) THEN
             IF (mr = '1') THEN
                 data_out1 <= mem_out;
             ELSIF (in_call_signal = '1') THEN

@@ -24,7 +24,8 @@ ARCHITECTURE CPU_ARCH OF CPU IS
             is_jmp_execute : IN STD_LOGIC;
             jmp_execute_address : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
             is_jmp_mem : IN STD_LOGIC;
-            jmp_mem_address : IN STD_LOGIC_VECTOR(31 DOWNTO 0)
+            jmp_mem_address : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+            reset_PC_address : IN STD_LOGIC_VECTOR(31 DOWNTO 0)
         );
     END COMPONENT;
     COMPONENT decode IS
@@ -93,7 +94,7 @@ ARCHITECTURE CPU_ARCH OF CPU IS
     END COMPONENT;
     COMPONENT memory IS
         PORT (
-            clk : IN STD_LOGIC;
+            clk, reset : IN STD_LOGIC;
             mr : IN STD_LOGIC;
             mw : IN STD_LOGIC;
             protect : IN STD_LOGIC;
@@ -197,7 +198,8 @@ BEGIN
         is_jmp_execute => E_F_fetched_is_jmp,
         jmp_execute_address => E_F_fetched_jmp_address,
         is_jmp_mem => M_F_fetched_is_jmp,
-        jmp_mem_address => DATA_OUT1_M_W
+        jmp_mem_address => DATA_OUT1_M_W, -- 3SHAN MOD7EK
+        reset_PC_address => Data_out1_M_W
     );
     u1 : decode PORT MAP(
         clk => clk,
@@ -296,6 +298,7 @@ BEGIN
     );
     u3 : memory PORT MAP(
         clk => clk,
+        reset => reset,
         mr => E_M_MR,
         mw => E_M_MW,
         protect => E_M_PROTECT,

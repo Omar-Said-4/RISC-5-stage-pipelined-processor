@@ -14,7 +14,8 @@ ENTITY Fetch IS
         is_jmp_execute : IN STD_LOGIC;
         jmp_execute_address : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
         is_jmp_mem : IN STD_LOGIC;
-        jmp_mem_address : IN STD_LOGIC_VECTOR(31 DOWNTO 0)
+        jmp_mem_address : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+        reset_PC_address : IN STD_LOGIC_VECTOR(31 DOWNTO 0)
     );
 
 END ENTITY;
@@ -41,8 +42,8 @@ BEGIN
 
     PROCESS (clk, reset) IS
     BEGIN
-        IF reset = '1' THEN
-            PC <= (OTHERS => '0');
+        IF (reset = '1') THEN
+            PC <= reset_PC_address;
             fetch_out <= (OTHERS => '1'); -- NOPE
             out_is32BitInst <= '0';
         ELSIF rising_edge(clk) THEN

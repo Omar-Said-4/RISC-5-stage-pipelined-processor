@@ -32,6 +32,8 @@ BEGIN
     stim_proc : PROCESS
     BEGIN
         INT <= '0';
+        reset <= '0';
+        WAIT FOR 150 ps;
         reset <= '1';
         WAIT FOR 200 ps;
         reset <= '0';
