@@ -62,7 +62,7 @@ A RISC-like, five-stage pipeline processor implemented using VHDL, is based on t
 | PORT     | IN          | 10                | X        | UUU         | DDD    | XXXX     | XX0      |
 | PORT     | OUT         | 10                | X        | DDD         | UUU    | XXXX     | XX1      |
 
-| Category | Instruction | Opcode (Category) | Reserved | Destination | Reserved | Reserved | Function |
+| Category | Instruction | Opcode (Category) | Reserved | Destination | Source | Reserved | Function |
 | -------- | ----------- | ----------------- | -------- | ----------- | -------- | -------- | -------- |
 | JUMP     | CALL        | 11                | X        | UUU         | XXX      | XXXX     | 000      |
 | JUMP     | JMP         | 11                | X        | UUU         | XXX      | XXXX     | 110      |
