@@ -2,6 +2,16 @@ from lists import *
 from validator import *
 
 # Read the file
+def convert_to_20_bits(hex_num):
+    binary_representation = bin(int(str(hex_num), 16))[2:]
+    padded_binary = binary_representation.zfill(20)
+    return padded_binary
+
+def split_effective_address(adress):
+    lower_4_bits = adress[-4:]
+    higher_16_bits = adress[:-4]
+    return higher_16_bits, lower_4_bits
+
 def read_from_file(file_name) -> []:
     processed_lines = []
     with open(file_name, 'r') as file:
@@ -143,6 +153,26 @@ def convert_to_binary(processed_lines)->[]:
                 continue
             if line[0]=="rti":
                 bits.append("1100000000000001")
+                bits.append('$')
+                continue
+            if(line[0] in ealow):
+                hex_num=line[2].split("'h")[0]
+                print(hex_num)
+                higher,lower=split_effective_address(convert_to_20_bits(hex_num))
+                bits.append(extract_op_code(line[0]))
+                print(bits)
+                bits.append("1")
+                print(bits)
+                bits.append(extract_Rdest(line))
+                print(bits)
+                bits.append(extract_Rsrc1(line))
+                print(bits)
+                bits.append(lower)
+                print(bits)
+                bits.append(extract_function(line[0]))
+                print(bits)
+                bits.append('$')
+                bits.append(higher)
                 bits.append('$')
                 continue
             bits.append(extract_op_code(line[0]))

@@ -1,2 +1,2 @@
-add r2,r2,r3
-add r2,r2,r3
+ldd r1,12345'h
+not r1
