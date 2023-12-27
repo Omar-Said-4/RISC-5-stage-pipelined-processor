@@ -170,7 +170,7 @@ ARCHITECTURE CPU_ARCH OF CPU IS
     SIGNAL EA_IN_EXE : STD_LOGIC_VECTOR(19 DOWNTO 0);
     -- SIGNAL test_rti : STD_LOGIC;
     SIGNAL EA_CONCAT : STD_LOGIC_VECTOR(19 DOWNTO 0); -- 3SHAN MOD7EK
-    ---------------------------------------- MEM_STAGE
+    ---------------------------------------- MEM_STAGE-------------------------------------------
     SIGNAL WB1_INTERMEDIATE : STD_LOGIC;
     SIGNAL WB2_INTERMEDIATE : STD_LOGIC;
     SIGNAL DATA_OUT1_M_W : STD_LOGIC_VECTOR(31 DOWNTO 0);
