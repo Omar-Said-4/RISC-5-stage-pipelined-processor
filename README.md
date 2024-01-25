@@ -1,5 +1,18 @@
 # RISC-5-stage-pipelined-processor
 
+<div align="center">
+
+[![GitHub contributors](https://img.shields.io/github/contributors/Omar-Said-4/RISC-5-stage-pipelined-processor)](https://github.com/Omar-Said-4/RISC-5-stage-pipelined-processor/contributors)
+[![GitHub issues](https://img.shields.io/github/issues/Omar-Said-4/RISC-5-stage-pipelined-processor)](https://github.com/Omar-Said-4/RISC-5-stage-pipelined-processor/issues)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub forks](https://img.shields.io/github/forks/Omar-Said-4/RISC-5-stage-pipelined-processor)](https://github.com/Omar-Said-4/RISC-5-stage-pipelined-processor/network)
+[![GitHub stars](https://img.shields.io/github/stars/Omar-Said-4/RISC-5-stage-pipelined-processor)](https://github.com/Omar-Said-4/RISC-5-stage-pipelined-processor/stargazers)
+[![GitHub Language](https://img.shields.io/github/languages/top/Omar-Said-4/RISC-5-stage-pipelined-processor)](https://img.shields.io/github/languages/Omar-Said-4/RISC-5-stage-pipelined-processor)
+![GitHub repo size](https://img.shields.io/github/repo-size/Omar-Said-4/RISC-5-stage-pipelined-processor?style=plastic)
+</div>
+
+
+
 ## 📝 Table of Contents
 
 - [About](#About)
