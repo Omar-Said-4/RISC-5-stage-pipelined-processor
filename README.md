@@ -8,7 +8,7 @@
 - [📑 About](#About)
 - [⛏️ Built With](#Built-with)
 - [📷 Design](#Design)
-- [ISA](#ISA)
+- [✏ ISA](#ISA)
 - [Input signals](#Input-signals)
 - [Control signals](#Control-signals)
 - [✍️ Contributors](#contributors)
@@ -34,7 +34,7 @@ A RISC-like, five-stage pipeline processor implemented using VHDL, is based on t
 
 
 
-## ISA <a name = "ISA"></a>
+## ✏ISA <a name = "ISA"></a>
 
 | Category | Instruction | Opcode (Category) | Immediate value | Destination | Source1 | Source2 | function |
 | -------- | ----------- | ----------------- | --------------- | ----------- | ------- | ------- | -------- |
