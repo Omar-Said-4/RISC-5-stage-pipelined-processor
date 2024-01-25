@@ -4,7 +4,7 @@
 <h2 style="display:inline">📝 Table of Contents</h2>
 </summary>
 
-- [📑 About](#about)
+- [📑 About](#About)
 - [⛏️ Built With](#Built-with)
 - [🎥 Design](#Design)
 - [📷 ISA](#ISA)
