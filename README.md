@@ -119,6 +119,39 @@ A RISC-like, five-stage pipeline processor implemented using VHDL, is based on t
 | RTI       | 1   | 0   | 0   | 0   | 0   | 0   | 1               | 0        | 0    | 0    | 0       | 0   | 0       | 0    | 1   | 0   |
 
 
+
+
+## ✍️ Contributors  <a name = "contributors"></a>
+<!-- readme: Contributors -start -->
+<table  align='center'> 
+<tr>
+    <td align="center">
+        <a href="https://github.com/yousefosama654">
+            <img src="https://avatars.githubusercontent.com/u/93356614?v=4" width="100;" alt="yousefosama654"/>
+            <br />
+            <sub><b>Yousef</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/Omar-Said-4">
+            <img src="https://avatars.githubusercontent.com/u/87082462?v=4" width="100;" alt="Omar Aziz"/>
+            <br />
+            <sub><b>Omar</b></sub>
+        </a>
+    </td>
+    <td align="center">
+        <a href="https://github.com/Malek-2002">
+            <img src="https://avatars.githubusercontent.com/u/89798604?v=4" width="100;" alt="Malek Hoassam"/>
+            <br />
+            <sub><b>Malek</b></sub>
+        </a>
+    </td>
+</tr>
+</table>
+<!-- readme: Contributors -end -->
+
+
+
 ## 🔒 License <a name = "license"></a>
 
 > This software is licensed under MIT License, See [License](https://github.com/Qwitter/Qwitter-Frontend/blob/main/LICENSE)
