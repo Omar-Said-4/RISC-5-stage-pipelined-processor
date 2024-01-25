@@ -3,6 +3,8 @@
 <div align="center">
 
 [![GitHub contributors](https://img.shields.io/github/contributors/Omar-Said-4/RISC-5-stage-pipelined-processor)](https://github.com/Omar-Said-4/RISC-5-stage-pipelined-processor/contributors)
+
+[![GitHub contributors](https://img.shields.io/github/contributors/Omar-Said-4/RISC-5-stage-pipelined-processor)](https://github.com/Omar-Said-4/RISC-5-stage-pipelined-processor/contributors)
 [![GitHub issues](https://img.shields.io/github/issues/Omar-Said-4/RISC-5-stage-pipelined-processor)](https://github.com/Omar-Said-4/RISC-5-stage-pipelined-processor/issues)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub forks](https://img.shields.io/github/forks/Omar-Said-4/RISC-5-stage-pipelined-processor)](https://github.com/Omar-Said-4/RISC-5-stage-pipelined-processor/network)
