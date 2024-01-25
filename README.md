@@ -4,12 +4,13 @@
 <h2 style="display:inline">📝 Table of Contents</h2>
 </summary>
 
+
 - [📑 About](#About)
 - [⛏️ Built With](#Built-with)
-- [🎥 Design](#Design)
-- [📷 ISA](#ISA)
-- [🏁 Input signals](#Input-signals)
-- [🏁 Control signals](#Control-signals)
+- [📷 Design](#Design)
+- [ISA](#ISA)
+- [Input signals](#Input-signals)
+- [Control signals](#Control-signals)
 - [✍️ Contributors](#contributors)
 - [🔒 License](#license)
 
