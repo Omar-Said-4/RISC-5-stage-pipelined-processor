@@ -25,7 +25,7 @@ A RISC-like, five-stage pipeline processor implemented using VHDL, is based on t
 
 - VHDL
 
-## Design
+## Design <a name = "Design"></a>
 
 <div align=center >
 <img align="center"  src="https://github.com/Omar-Said-4/RISC-5-stage-pipelined-processor/assets/93356614/a7179f4c-488c-4cc1-a1d4-2a6fb6c22713">
@@ -33,7 +33,7 @@ A RISC-like, five-stage pipeline processor implemented using VHDL, is based on t
 
 
 
-## ISA
+## ISA <a name = "ISA"></a>
 
 | Category | Instruction | Opcode (Category) | Immediate value | Destination | Source1 | Source2 | function |
 | -------- | ----------- | ----------------- | --------------- | ----------- | ------- | ------- | -------- |
@@ -77,14 +77,14 @@ A RISC-like, five-stage pipeline processor implemented using VHDL, is based on t
 | JUMP     | RET         | 11                | X        | UUU         | XXX      | XXXX     | 101      |
 | JUMP     | RTI         | 11                | X        | UUU         | XXX      | XXXX     | 001      |
 
-## Input signals
+## Input signals <a name = "Input-signals"></a>
 
 | Signal    |
 | --------- |
 | Interrupt |
 | reset     |
 
-## Control signals
+## Control signals <a name = "Control-signals"></a>
 
 | Operation | MR  | MW  | IOR | IOW | WB1 | WB2 | Stack operation | Push/Pop | JUMP | CALL | RSTCTRL | ALU | PROTECT | FREE | RTI | JZ  |
 | --------- | --- | --- | --- | --- | --- | --- | --------------- | -------- | ---- | ---- | ------- | --- | ------- | ---- | --- | --- |
