@@ -1,29 +1,21 @@
-# RISC-5-stage-pipelined-processor
 
-<div align="center">
+<details open="open">
+<summary>
+<h2 style="display:inline">📝 Table of Contents</h2>
+</summary>
 
-[![GitHub contributors](https://img.shields.io/github/contributors/Omar-Said-4/RISC-5-stage-pipelined-processor)](https://github.com/Omar-Said-4/RISC-5-stage-pipelined-processor/contributors)
+- [📑 About](#about)
+- [⛏️ Built With](#Built-with)
+- [🎥 Design](#Design)
+- [📷 ISA](#ISA)
+- [🏁 Input signals](#Input-signals)
+- [🏁 Control signals](#Control-signals)
+- [✍️ Contributors](#contributors)
+- [🔒 License](#license)
 
-[![GitHub contributors](https://img.shields.io/github/contributors/Omar-Said-4/RISC-5-stage-pipelined-processor)](https://github.com/Omar-Said-4/RISC-5-stage-pipelined-processor/contributors)
-[![GitHub issues](https://img.shields.io/github/issues/Omar-Said-4/RISC-5-stage-pipelined-processor)](https://github.com/Omar-Said-4/RISC-5-stage-pipelined-processor/issues)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub forks](https://img.shields.io/github/forks/Omar-Said-4/RISC-5-stage-pipelined-processor)](https://github.com/Omar-Said-4/RISC-5-stage-pipelined-processor/network)
-[![GitHub stars](https://img.shields.io/github/stars/Omar-Said-4/RISC-5-stage-pipelined-processor)](https://github.com/Omar-Said-4/RISC-5-stage-pipelined-processor/stargazers)
-[![GitHub Language](https://img.shields.io/github/languages/top/Omar-Said-4/RISC-5-stage-pipelined-processor)](https://img.shields.io/github/languages/Omar-Said-4/RISC-5-stage-pipelined-processor)
-![GitHub repo size](https://img.shields.io/github/repo-size/Omar-Said-4/RISC-5-stage-pipelined-processor?style=plastic)
-</div>
+</details>
 
 
-
-## 📝 Table of Contents
-
-- [About](#About)
-- [Built With](#Built-With)
-- [Design](#Design)
-- [ISA](#ISA)
-- [Input signals](#Input-signals)
-- [Control signals](#Control-signals)
-- [Contributors](#Contributors)
 
 # 📑 About
 
@@ -125,3 +117,8 @@ A RISC-like, five-stage pipeline processor implemented using VHDL, is based on t
 | JZ        | 0   | 0   | 0   | 0   | 0   | 0   | 0               | 0        | 1    | 0    | 0       | 0   | 0       | 0    | 0   | 1   |
 | RET       | 1   | 0   | 0   | 0   | 0   | 0   | 1               | 0        | 0    | 0    | 0       | 0   | 0       | 0    | 0   | 0   |
 | RTI       | 1   | 0   | 0   | 0   | 0   | 0   | 1               | 0        | 0    | 0    | 0       | 0   | 0       | 0    | 1   | 0   |
+
+
+## 🔒 License <a name = "license"></a>
+
+> This software is licensed under MIT License, See [License](https://github.com/Qwitter/Qwitter-Frontend/blob/main/LICENSE)
